@@ -1,0 +1,105 @@
+name: Android Appium E2E Testing
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 1: Build APK & Execute Appium E2E Tests
+  # ═══════════════════════════════════════════════════════════════════════════
+  appium-test:
+    name: "Build App and Run Appium Tests"
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Java (JDK 17)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # Build web assets and Capacitor Android target
+      - name: Build Web Application
+        run: |
+          npm install
+          node build-mobile.js
+
+      - name: Build Capacitor Android App
+        run: |
+          npx cap sync android
+
+      - name: Compile Android APK (Debug)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Excel dependencies
+        run: |
+          pip install openpyxl
+
+      - name: Install Appium testing packages
+        run: |
+          cd appium-tests
+          npm install
+
+      - name: Run Appium Tests on Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          script: |
+            # Start Appium Server in background
+            cd appium-tests
+            npx appium --log ./appium-server.log &
+            
+            # Install App APK on Emulator
+            adb install ../android/app/build/outputs/apk/debug/app-debug.apk
+            
+            # Run Jasmine test specs
+            npm test || true
+
+      - name: Generate Automation Reports
+        run: |
+          cd appium-tests
+          npm run report
+
+      - name: Upload Test Results Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: appium-e2e-test-results
+          path: |
+            appium-tests/Test Results/Excel/Automation_Test_Report.xlsx
+            appium-tests/Test Results/HTML/execution-report.html
+            appium-tests/Test Results/Screenshots/
+            appium-tests/Test Results/Logs/
+            appium-tests/Test Results/Summary/summary.md
+          retention-days: 90
+
+      - name: Publish Summary to GITHUB_STEP_SUMMARY
+        run: |
+          cat "appium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY

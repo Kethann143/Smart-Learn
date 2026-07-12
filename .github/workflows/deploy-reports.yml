@@ -1,0 +1,93 @@
+name: Deploy Test Reports to GitHub Pages
+
+on:
+  workflow_run:
+    workflows: ["Android Appium E2E Testing"]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy-reports:
+    name: "Deploy Reports to gh-pages"
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Appium Test Results Artifact
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run ? context.payload.workflow_run.id : context.runId,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "appium-e2e-test-results"
+            })[0];
+            if (!matchArtifact) {
+              throw new Error("Artifact appium-e2e-test-results not found");
+            }
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync('${{ github.workspace }}/appium-results.zip', Buffer.from(download.data));
+
+      - name: Extract Artifacts
+        run: |
+          mkdir -p extracted-results
+          unzip appium-results.zip -d extracted-results
+
+      - name: Push Test Reports to GitHub Pages (gh-pages)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Clone gh-pages branch or init new if absent
+          git clone --branch gh-pages "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" temp-gh-pages || {
+            mkdir temp-gh-pages
+            cd temp-gh-pages
+            git init
+            git checkout -b gh-pages
+            cd ..
+          }
+          
+          # Sync frontend index.html and scripts so web app stays active in root page
+          cp index.html styles.css app.js auth.js ai.js db.js federated.js manifest.json temp-gh-pages/ 2>/dev/null || true
+          mkdir -p temp-gh-pages/assets
+          cp -r assets/* temp-gh-pages/assets/ 2>/dev/null || true
+          
+          # Setup reports paths
+          RUN_NUM="${{ github.event.workflow_run.run_number || github.run_number }}"
+          mkdir -p temp-gh-pages/reports/latest/screenshots
+          mkdir -p temp-gh-pages/reports/latest/logs
+          mkdir -p temp-gh-pages/reports/history/build-${RUN_NUM}/screenshots
+          mkdir -p temp-gh-pages/reports/history/build-${RUN_NUM}/logs
+          
+          # Copy reports to latest/
+          cp extracted-results/execution-report.html temp-gh-pages/reports/latest/
+          cp extracted-results/summary.md temp-gh-pages/reports/latest/
+          cp -r extracted-results/Screenshots/* temp-gh-pages/reports/latest/screenshots/ 2>/dev/null || true
+          cp -r extracted-results/Logs/* temp-gh-pages/reports/latest/logs/ 2>/dev/null || true
+          
+          # Copy reports to history/build-xxx/
+          cp extracted-results/execution-report.html temp-gh-pages/reports/history/build-${RUN_NUM}/
+          cp extracted-results/summary.md temp-gh-pages/reports/history/build-${RUN_NUM}/
+          cp -r extracted-results/Screenshots/* temp-gh-pages/reports/history/build-${RUN_NUM}/screenshots/ 2>/dev/null || true
+          cp -r extracted-results/Logs/* temp-gh-pages/reports/history/build-${RUN_NUM}/logs/ 2>/dev/null || true
+          
+          # Commit and push report update
+          cd temp-gh-pages
+          git add .
+          git commit -m "Deploy Appium reports for build #${RUN_NUM}"
+          git push origin gh-pages

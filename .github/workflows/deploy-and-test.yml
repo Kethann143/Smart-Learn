@@ -1,0 +1,130 @@
+name: Deploy and Live E2E Testing
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 1: Deploy to GitHub Pages
+  # ═══════════════════════════════════════════════════════════════════════════
+  deploy:
+    name: "Deploy Frontend to GitHub Pages"
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # In a real build step we might compile or build. For this client-first app,
+      # we deploy the root folder as it is. Let's make sure the essential assets exist.
+      - name: Verify static files
+        run: |
+          ls -la index.html styles.css app.js auth.js ai.js db.js federated.js
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the root directory containing index.html and scripts
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 2: Live Selenium E2E Testing
+  # ═══════════════════════════════════════════════════════════════════════════
+  test:
+    name: "Run E2E Tests on Live Deployed Site"
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Wait for GitHub Pages URL to return 200 (live)
+      - name: Verify Deployment is Live
+        run: |
+          URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          echo "Checking deployment URL: $URL"
+          for i in {1..30}; do
+            HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$URL" || echo "000")
+            if [ "$HTTP_STATUS" = "200" ]; then
+              echo "✅ Deployment is live!"
+              break
+            fi
+            echo "⏳ Waiting for deployment to go live (HTTP: $HTTP_STATUS)... Attempt $i/30"
+            sleep 10
+          done
+
+      - name: Install Selenium dependencies
+        run: |
+          cd selenium-tests
+          npm install
+
+      - name: Run Selenium Tests (Headless)
+        run: |
+          cd selenium-tests
+          mkdir -p "Test Results/Logs"
+          # Set BASE_URL and run mocha with mochawesome reporter
+          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
+          HEADLESS=true \
+          npx mocha tests/login.test.js --reporter mochawesome --timeout 60000 --exit 2>&1 | tee "Test Results/Logs/execution.log" || true
+
+      - name: Install Python Excel dependencies
+        run: |
+          pip install openpyxl
+
+      - name: Generate Reports and Metrics
+        run: |
+          cd selenium-tests
+          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
+          python generate_final_reports.py
+
+      - name: Upload Test Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: selenium-e2e-test-results
+          path: |
+            selenium-tests/Test Results/Excel/Automation_Test_Report.xlsx
+            selenium-tests/Test Results/HTML/execution-report.html
+            selenium-tests/Test Results/Screenshots/
+            selenium-tests/Test Results/Logs/
+            selenium-tests/Test Results/Summary/summary.md
+          retention-days: 90
+
+      - name: Publish Summary to GITHUB_STEP_SUMMARY
+        run: |
+          cat "selenium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY

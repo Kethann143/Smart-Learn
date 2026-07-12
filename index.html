@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-Driven Smart Learning Companion: Privacy-preserving personalized learning with Federated Learning.">
+  <title>Smart Learning Companion - Federated Privacy Education</title>
+  
+  <!-- CDNs for Stylesheets & Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a081a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300f2fe'/%3E%3Cstop offset='1' stop-color='%234facfe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext y='65' x='20' fill='%23000' font-family='sans-serif' font-weight='800' font-size='50'%3ESL%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- ============================================================
+       Electron Custom Title Bar (hidden in browser, shown in app)
+       ============================================================ -->
+  <div id="electron-titlebar" class="electron-titlebar" style="display:none">
+    <div class="titlebar-left">
+      <div class="titlebar-logo">SL</div>
+      <span class="titlebar-title">Smart Learn</span>
+    </div>
+    <div class="titlebar-controls">
+      <button id="tb-minimize" class="tb-btn tb-minimize" title="Minimize">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect fill="currentColor" x="0" y="5" width="12" height="2" rx="1"/></svg>
+      </button>
+      <button id="tb-maximize" class="tb-btn tb-maximize" title="Maximize">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect fill="none" stroke="currentColor" stroke-width="1.5" x="1" y="1" width="10" height="10" rx="2"/></svg>
+      </button>
+      <button id="tb-close" class="tb-btn tb-close" title="Close to Tray">
+        <svg width="12" height="12" viewBox="0 0 12 12"><line stroke="currentColor" stroke-width="1.5" stroke-linecap="round" x1="1" y1="1" x2="11" y2="11"/><line stroke="currentColor" stroke-width="1.5" stroke-linecap="round" x1="11" y1="1" x2="1" y2="11"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="app-container">
+
+    
+    <!-- ==========================================
+         Sidebar Navigation (Desktop Mode)
+         ========================================== -->
+    <aside class="sidebar glass-card" id="main-sidebar">
+      <div class="logo-container">
+        <div class="logo-icon">SL</div>
+        <div class="logo-text">
+          <span>Smart Learn</span>
+          <span class="logo-sub">Federated Companion</span>
+        </div>
+      </div>
+      
+      <ul class="nav-links">
+        <li class="nav-item active" data-view="home">
+          <a href="#" id="nav-link-home"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+        </li>
+        <li class="nav-item" data-view="courses">
+          <a href="#" id="nav-link-courses"><i class="fa-solid fa-graduation-cap"></i> <span>Courses</span></a>
+        </li>
+        <li class="nav-item" data-view="tutor">
+          <a href="#" id="nav-link-tutor"><i class="fa-solid fa-robot"></i> <span>AI Tutor</span></a>
+        </li>
+        <li class="nav-item" data-view="progress">
+          <a href="#" id="nav-link-progress"><i class="fa-solid fa-chart-line"></i> <span>Progress</span></a>
+        </li>
+        <li class="nav-item" data-view="profile">
+          <a href="#" id="nav-link-profile"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
+        </li>
+        <li class="nav-item" data-view="settings">
+          <a href="#" id="nav-link-settings"><i class="fa-solid fa-gear"></i> <span>Settings</span></a>
+        </li>
+      </ul>
+      
+      <div class="sidebar-footer">
+        <div class="user-avatar-sm" id="sidebar-user-avatar">AM</div>
+        <div class="user-info-sm">
+          <span class="user-name-sm" id="sidebar-user-name">Alex Mercer</span>
+          <span class="user-role-sm">Private Node</span>
+        </div>
+        <button class="icon-btn" id="logout-btn" title="Sign Out" style="margin-left:auto; width:32px; height:32px; font-size:0.8rem;">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         Floating Navigation (Mobile Mode)
+         ========================================== -->
+    <nav class="floating-nav" id="mobile-floating-nav">
+      <a href="#" class="float-nav-item active" data-view="home" id="float-nav-home">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="#" class="float-nav-item" data-view="courses" id="float-nav-courses">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Courses</span>
+      </a>
+      <a href="#" class="float-nav-item" data-view="tutor" id="float-nav-tutor">
+        <i class="fa-solid fa-robot"></i>
+        <span>Tutor</span>
+      </a>
+      <a href="#" class="float-nav-item" data-view="progress" id="float-nav-progress">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Stats</span>
+      </a>
+      <a href="#" class="float-nav-item" data-view="profile" id="float-nav-profile">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </a>
+      <a href="#" class="float-nav-item" data-view="settings" id="float-nav-settings">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <!-- ==========================================
+         Main Workspaces Panel
+         ========================================== -->
+    <main class="main-content">
+      
+      <!-- Top header layout -->
+      <header class="view-header">
+        <div class="header-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search courses or topics..." id="global-search-input">
+        </div>
+        
+        <div class="header-actions">
+          <button class="icon-btn" id="theme-toggle-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          
+          <button class="icon-btn" id="fl-sync-trigger-btn" title="Sync Federated Model">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span style="font-size: 0.75rem; margin-left: 6px; font-family: var(--font-display); font-weight:600; display:inline-block;" class="gradient-text">Sync</span>
+          </button>
+          
+          <button class="icon-btn" id="notifications-trigger-btn" title="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notification-badge" id="notifications-red-dot"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ==========================================
+           Home Dashboard View
+           ========================================== -->
+      <section class="view-container active-view" id="view-home">
+        
+        <div class="welcome-grid">
+          <div class="welcome-card glass-card">
+            <h1 class="welcome-title">Hello, <span id="welcome-username" class="gradient-text">Alex</span>!</h1>
+            <p class="welcome-subtitle">Welcome back. Your local AI training node is secure. Accelerate your skills privately with modern Federated Guidance.</p>
+            <div class="welcome-stats">
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-details">
+                  <span class="stat-value" id="welcome-hours">24.5 hrs</span>
+                  <span class="stat-label">Studied</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="stat-details">
+                  <span class="stat-value" id="welcome-topics">12</span>
+                  <span class="stat-label">Topics Clear</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="streak-card glass-card">
+            <div class="streak-fire-container">
+              <span class="streak-fire">🔥</span>
+              <span class="streak-number-badge" id="home-streak-badge-num">5</span>
+            </div>
+            <h3 class="streak-text"><span id="home-streak-days">5</span> Day Streak!</h3>
+            <p class="streak-desc">Keep studying daily to maintain your local momentum.</p>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Study Analytics Widget -->
+          <div class="analytics-card glass-card">
+            <div class="card-header-actions">
+              <h3 class="section-title" style="margin-bottom:0;"><i class="fa-solid fa-chart-simple gradient-text"></i> Weekly Study Trends</h3>
+              <span style="font-size:0.75rem; color:var(--text-muted);">Local logs only</span>
+            </div>
+            <svg class="weekly-graph" viewBox="0 0 500 200">
+              <defs>
+                <linearGradient id="graphGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="var(--accent-cyan)" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="var(--accent-cyan)" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Grid Lines -->
+              <line x1="40" y1="30" x2="480" y2="30" class="graph-gridline" />
+              <line x1="40" y1="80" x2="480" y2="80" class="graph-gridline" />
+              <line x1="40" y1="130" x2="480" y2="130" class="graph-gridline" />
+              <line x1="40" y1="170" x2="480" y2="170" class="graph-axis" />
+              <!-- Y Axis labels -->
+              <text x="15" y="34" class="graph-text">4h</text>
+              <text x="15" y="84" class="graph-text">2h</text>
+              <text x="15" y="134" class="graph-text">1h</text>
+              <text x="15" y="174" class="graph-text">0h</text>
+              
+              <!-- Graph Lines (Drawn dynamically or pre-styled) -->
+              <path d="M 40 170 Q 110 130, 180 80 T 320 120 T 460 30" class="graph-line-fill" />
+              <path d="M 40 170 Q 110 130, 180 80 T 320 120 T 460 30" class="graph-line-stroke" />
+              
+              <!-- Points -->
+              <circle cx="40" cy="170" r="5" class="graph-point" />
+              <circle cx="110" cy="130" r="5" class="graph-point" />
+              <circle cx="180" cy="80" r="5" class="graph-point" />
+              <circle cx="250" cy="95" r="5" class="graph-point" />
+              <circle cx="320" cy="120" r="5" class="graph-point" />
+              <circle cx="390" cy="85" r="5" class="graph-point" />
+              <circle cx="460" cy="30" r="5" class="graph-point" />
+              
+              <!-- X Axis Labels -->
+              <text x="35" y="192" class="graph-text">Thu</text>
+              <text x="105" y="192" class="graph-text">Fri</text>
+              <text x="175" y="192" class="graph-text">Sat</text>
+              <text x="245" y="192" class="graph-text">Sun</text>
+              <text x="315" y="192" class="graph-text">Mon</text>
+              <text x="385" y="192" class="graph-text">Tue</text>
+              <text x="450" y="192" class="graph-text">Today</text>
+            </svg>
+          </div>
+
+          <!-- Federated Learning status widget -->
+          <div class="federated-status-card glass-card">
+            <h3 class="section-title"><i class="fa-solid fa-network-wired gradient-text-purple"></i> Local AI Training</h3>
+            <div class="fl-nodes-container">
+              <!-- Animated connection canvas/lines -->
+              <div class="fl-node-center"><i class="fa-solid fa-server" style="color:#000;"></i></div>
+              <div class="fl-node-client fl-node-1" title="Node 1"><i class="fa-solid fa-laptop"></i></div>
+              <div class="fl-node-client fl-node-2" title="Node 2"><i class="fa-solid fa-mobile-screen"></i></div>
+              <div class="fl-node-client fl-node-3" title="Node 3"><i class="fa-solid fa-tablet-screen-button"></i></div>
+              <div class="fl-node-client fl-node-4" title="Your Node (Active)" style="border: 2px solid var(--accent-cyan);"><i class="fa-solid fa-user-shield"></i></div>
+            </div>
+            <div style="flex-grow:1; display:flex; flex-direction:column; gap:8px;">
+              <div class="fl-metric">
+                <span class="fl-metric-label">Local Data Logs</span>
+                <span class="fl-metric-value" id="fl-local-logs-count">0 records</span>
+              </div>
+              <div class="fl-metric">
+                <span class="fl-metric-label">Privacy Budget (ε)</span>
+                <span class="fl-metric-value">ε = 0.5 (High Guard)</span>
+              </div>
+              <div class="fl-metric">
+                <span class="fl-metric-label">Last Aggregation</span>
+                <span class="fl-metric-value" id="fl-sync-last-time">Never synchronized</span>
+              </div>
+              <button class="neon-btn" id="home-fl-sync-btn" style="margin-top:10px; width:100%; justify-content:center;">
+                <i class="fa-solid fa-rotate"></i> Aggregate Model Update
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Continue learning section -->
+        <h3 class="section-title" id="home-continue-title" style="display:none;"><i class="fa-solid fa-clock-rotate-left gradient-text"></i> Continue Learning</h3>
+        <div class="horizontal-scroll-container" id="home-continue-list" style="display:none;">
+          <!-- Dynamically populated continue cards -->
+        </div>
+
+        <!-- Personalized Recommendations -->
+        <h3 class="section-title"><i class="fa-solid fa-wand-magic-sparkles gradient-text"></i> Privacy-Preserved Recommendations</h3>
+        <div class="horizontal-scroll-container" id="home-recommendations-list">
+          <!-- Dynamically computed recommendations based on local federated model state -->
+        </div>
+
+        <!-- Daily goals / Challenges -->
+        <div class="goals-insights-grid">
+          <div class="glass-card">
+            <h3 class="section-title"><i class="fa-solid fa-bullseye gradient-text"></i> Daily Learning Goals</h3>
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:15px; margin-top:15px;" id="dashboard-goals-list">
+              <li style="display:flex; align-items:center; gap:12px;">
+                <input type="checkbox" id="goal-1" style="width:18px; height:18px; accent-color:var(--accent-cyan);">
+                <label for="goal-1" style="font-size:0.9rem;">Complete 1 Topic in active course</label>
+              </li>
+              <li style="display:flex; align-items:center; gap:12px;">
+                <input type="checkbox" id="goal-2" style="width:18px; height:18px; accent-color:var(--accent-cyan);">
+                <label for="goal-2" style="font-size:0.9rem;">Ask AI Tutor 1 coding/debugging question</label>
+              </li>
+              <li style="display:flex; align-items:center; gap:12px;">
+                <input type="checkbox" id="goal-3" style="width:18px; height:18px; accent-color:var(--accent-cyan);" checked>
+                <label for="goal-3" style="font-size:0.9rem; text-decoration: line-through; color: var(--text-muted);">Refreshed streak logs for today</label>
+              </li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h3 class="section-title"><i class="fa-solid fa-lightbulb gradient-text"></i> AI Study Insights</h3>
+            <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:20px; border-left:3px solid var(--accent-purple); font-size:0.85rem;" id="ai-study-insights-text">
+              "Based on your local model, you perform best on logic and variable scopes in Python. Practice SQL query combinations to lift your relational database parameters before the next global aggregation sync."
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           Courses Catalog Section
+           ========================================== -->
+      <section class="view-container" id="view-courses">
+        <h2 style="font-size:2rem; margin-bottom:10px;">Explore Course Syllabus Catalog</h2>
+        <p style="color:var(--text-secondary); margin-bottom:30px;">Choose a course to dynamically generate its structured 7-step learning timeline, lesson pages, and quizzes.</p>
+        
+        <!-- Filters navigation -->
+        <div class="course-filters" id="course-filter-bar">
+          <button class="filter-btn active" data-category="all">All Specialties</button>
+          <button class="filter-btn" data-category="Programming Languages">Programming</button>
+          <button class="filter-btn" data-category="Web Development">Web Dev</button>
+          <button class="filter-btn" data-category="Databases">Databases</button>
+          <button class="filter-btn" data-category="AI & Data Science">AI & ML</button>
+          <button class="filter-btn" data-category="Cloud & Infrastructure">Cloud & DevOps</button>
+          <button class="filter-btn" data-category="Security & Networking">Cyber Security</button>
+          <button class="filter-btn" data-category="Design & Marketing">Design</button>
+        </div>
+
+        <div class="courses-grid" id="courses-catalog-grid">
+          <!-- Dynamically populated with 45+ course cards -->
+        </div>
+      </section>
+
+      <!-- ==========================================
+           Dynamic Course Viewer View
+           ========================================== -->
+      <section class="view-container" id="view-course-viewer">
+        <button class="neon-btn-secondary" id="back-to-courses-btn" style="margin-bottom: 25px;">
+          <i class="fa-solid fa-arrow-left"></i> Back to Courses
+        </button>
+        
+        <div class="course-details-layout">
+          <!-- Sidebar: Dynamic units and topics tree list -->
+          <aside class="syllabus-sidebar glass-card">
+            <h3 class="syllabus-sidebar-title" id="cv-sidebar-course-name">Course Syllabus</h3>
+            <ul class="syllabus-list" id="cv-syllabus-list">
+              <!-- Dynamically populated course topics list -->
+            </ul>
+          </aside>
+
+          <!-- Core topic content panel -->
+          <div class="topic-content-panel glass-card">
+            <div class="topic-header-wrap">
+              <div>
+                <span class="badge badge-trending" id="cv-topic-category" style="margin-bottom:8px; display:inline-block;">Python</span>
+                <h2 class="topic-title" id="cv-topic-title">Variables & Data Structures</h2>
+                <p class="topic-desc" id="cv-topic-desc">Understanding primitive types and scopes.</p>
+              </div>
+              <div style="display:flex; gap:10px;">
+                <button class="icon-btn" id="cv-bookmark-btn" title="Bookmark Lesson"><i class="fa-regular fa-bookmark"></i></button>
+                <button class="icon-btn" id="cv-notes-btn" title="Notes & Resource Download"><i class="fa-solid fa-download"></i></button>
+                <button class="neon-btn" id="cv-open-tutor-btn" style="padding:10px 18px;"><i class="fa-solid fa-robot"></i> Ask Tutor</button>
+              </div>
+            </div>
+
+            <!-- Tabs: Explanations -->
+            <nav class="difficulty-tab-nav">
+              <button class="tab-btn active" data-difficulty="beginner">Beginner Analogy</button>
+              <button class="tab-btn" data-difficulty="intermediate">Intermediate Syntax</button>
+              <button class="tab-btn" data-difficulty="advanced">Advanced Optimization</button>
+            </nav>
+
+            <div class="tab-pane active-pane" id="cv-pane-beginner">
+              <!-- Beginner Analogy Content -->
+            </div>
+            <div class="tab-pane" id="cv-pane-intermediate">
+              <!-- Intermediate Syntax Content -->
+            </div>
+            <div class="tab-pane" id="cv-pane-advanced">
+              <!-- Advanced Optimization Content -->
+            </div>
+
+            <!-- Visual flow/diagram -->
+            <h4 style="margin:30px 0 10px 0;">Visual Framework:</h4>
+            <div class="flowchart-diagram" id="cv-diagram-box">
+              [User Activity] ---> [Local Model weights]
+            </div>
+
+            <!-- Code block -->
+            <h4 style="margin:25px 0 10px 0;">Hands-on Code Example:</h4>
+            <div class="code-block-wrapper">
+              <div class="code-header">
+                <span id="cv-code-language">PYTHON</span>
+                <button class="icon-btn" id="cv-code-copy-btn" style="width:28px; height:28px; font-size:0.75rem;"><i class="fa-regular fa-copy"></i></button>
+              </div>
+              <pre class="code-content"><code id="cv-code-snippet">print("Loading compiler script...")</code></pre>
+            </div>
+
+            <!-- Best practices & mistakes -->
+            <div class="practices-mistakes-grid">
+              <div class="pm-column pm-column-practices">
+                <h4 class="pm-title"><i class="fa-regular fa-circle-check" style="color:var(--accent-cyan);"></i> Best Practices</h4>
+                <ul class="pm-list" id="cv-best-practices-list">
+                  <li>Use clean comments.</li>
+                </ul>
+              </div>
+              <div class="pm-column pm-column-mistakes">
+                <h4 class="pm-title"><i class="fa-solid fa-circle-exclamation" style="color:var(--accent-pink);"></i> Common Pitfalls</h4>
+                <ul class="pm-list" id="cv-common-mistakes-list">
+                  <li>Forgetting scopes.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Quiz widget -->
+            <div class="topic-quiz-widget glass-card" id="cv-quiz-widget">
+              <h3 class="section-title"><i class="fa-solid fa-circle-question gradient-text"></i> Interactive Practice Quiz</h3>
+              <div class="quiz-question-title" id="cv-quiz-question">Which syntax is correct to define variables?</div>
+              <div class="quiz-options-list" id="cv-quiz-options-list">
+                <!-- Radio option buttons dynamically loaded -->
+              </div>
+              <div class="quiz-feedback" id="cv-quiz-feedback">Correct! Well done.</div>
+              <button class="neon-btn" id="cv-quiz-submit-btn" style="width:100%; justify-content:center;">Submit Answer</button>
+            </div>
+
+            <!-- Challenge & Next buttons -->
+            <div style="background:rgba(255,255,255,0.02); border-radius:12px; padding:20px; border-left:3px solid var(--accent-purple); margin-bottom:30px;">
+              <h4 style="margin-bottom:8px;"><i class="fa-solid fa-code gradient-text-purple"></i> Local Mini Challenge:</h4>
+              <p id="cv-mini-challenge-text" style="font-size:0.85rem; color:var(--text-secondary);">Write your local script and run tests inside your sandbox framework.</p>
+            </div>
+
+            <!-- Navigation Buttons footer -->
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <button class="neon-btn-secondary" id="cv-prev-topic-btn"><i class="fa-solid fa-chevron-left"></i> Previous Topic</button>
+              <button class="neon-btn" id="cv-next-topic-btn">Next Topic <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           AI Tutor View
+           ========================================== -->
+      <section class="view-container" id="view-tutor">
+        <div class="ai-tutor-layout">
+          <!-- Sidebar context discussion -->
+          <aside class="chat-history-sidebar glass-card">
+            <h3 style="font-size:1rem; border-bottom:1px solid var(--border-glass); padding-bottom:10px;">Chat History</h3>
+            <div class="history-list" id="tutor-history-list">
+              <!-- Pre-filled dynamic course history nodes -->
+            </div>
+            <button class="neon-btn-secondary" id="tutor-clear-chat-btn" style="width:100%; padding:10px; font-size:0.8rem; justify-content:center;">
+              <i class="fa-solid fa-trash"></i> Clear Logs
+            </button>
+          </aside>
+
+          <!-- Active chatbot area -->
+          <div class="chat-workspace">
+            <div class="ai-context-banner" id="tutor-context-banner">
+              <div>
+                <i class="fa-solid fa-graduation-cap"></i> 
+                <span>Context: </span>
+                <strong id="tutor-context-course-name">General</strong>
+                <span id="tutor-context-divider" style="margin: 0 5px; opacity:0.5;">|</span>
+                <span id="tutor-context-topic-name">Introduction</span>
+              </div>
+              <span class="badge badge-difficulty" id="tutor-context-status-badge">Locked Session</span>
+            </div>
+
+            <div class="chat-messages-container" id="tutor-messages-box">
+              <!-- Dynamic chat bubble list -->
+            </div>
+
+            <div class="chat-input-wrapper">
+              <div class="chat-input-inner">
+                <input type="text" placeholder="Ask AI Tutor for coding help, explanations, roadmaps..." id="tutor-chat-input">
+                <div class="chat-input-actions">
+                  <button class="chat-action-btn" id="tutor-mic-btn" title="Voice Input"><i class="fa-solid fa-microphone"></i></button>
+                  <button class="chat-action-btn" id="tutor-quick-quiz-btn" title="Quick Quiz"><i class="fa-solid fa-circle-question"></i></button>
+                </div>
+              </div>
+              <button class="neon-btn" id="tutor-send-btn" style="padding:14px 20px;"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           Progress Analytics View
+           ========================================== -->
+      <section class="view-container" id="view-progress">
+        <h2 style="font-size:2rem; margin-bottom:10px;">Your Learning Metrics Dashboard</h2>
+        <p style="color:var(--text-secondary); margin-bottom:30px;">Overview of study hours, streak counts, quizzes clear, and Local vs Global AI model parameter values.</p>
+        
+        <div class="stats-cards-grid">
+          <div class="stat-metric-card glass-card">
+            <div class="stat-metric-header">
+              <span>Study Duration</span>
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <span class="stat-metric-num" id="stats-duration">24.5h</span>
+            <span style="font-size:0.7rem; color:var(--text-muted);">Cumulative runtime logs</span>
+          </div>
+          <div class="stat-metric-card glass-card">
+            <div class="stat-metric-header">
+              <span>Active Streak</span>
+              <i class="fa-solid fa-fire" style="color:var(--accent-pink);"></i>
+            </div>
+            <span class="stat-metric-num" id="stats-streak">5 days</span>
+            <span style="font-size:0.7rem; color:var(--text-muted);">Current daily logs</span>
+          </div>
+          <div class="stat-metric-card glass-card">
+            <div class="stat-metric-header">
+              <span>Topics Complete</span>
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+            <span class="stat-metric-num" id="stats-topics">12</span>
+            <span style="font-size:0.7rem; color:var(--text-muted);">Dynamic syllabuses clear</span>
+          </div>
+          <div class="stat-metric-card glass-card">
+            <div class="stat-metric-header">
+              <span>Quiz Success Rate</span>
+              <i class="fa-solid fa-star" style="color:var(--accent-cyan);"></i>
+            </div>
+            <span class="stat-metric-num" id="stats-quiz-acc">88%</span>
+            <span style="font-size:0.7rem; color:var(--text-muted);">Average score metric</span>
+          </div>
+        </div>
+
+        <div class="progress-details-grid">
+          <!-- Local Interest Vectors parameter weights list -->
+          <div class="glass-card">
+            <h3 class="section-title"><i class="fa-solid fa-chart-bar gradient-text"></i> Local Personalized Interest Profile</h3>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:20px;">These weights are computed locally using SGD strictly from browser logs. They control recommendations.</p>
+            <div id="stats-weights-list">
+              <!-- Populated dynamically with category weights -->
+            </div>
+          </div>
+
+          <!-- Academic insights & recommendations -->
+          <div class="glass-card">
+            <h3 class="section-title"><i class="fa-solid fa-shield-check gradient-text-purple"></i> Private Audit Compliance</h3>
+            <div style="display:flex; flex-direction:column; gap:15px; font-size:0.85rem;">
+              <div style="padding:15px; border-radius:10px; background:rgba(0, 242, 254, 0.05); border:1px solid rgba(0, 242, 254, 0.1);">
+                <strong style="display:block; color:var(--accent-cyan); margin-bottom:4px;"><i class="fa-solid fa-lock"></i> Zero Data Transfer Protocol</strong>
+                Raw study minutes, question mistakes, and bio profile configurations have never left this workstation client.
+              </div>
+              <div style="padding:15px; border-radius:10px; background:rgba(177, 82, 255, 0.05); border:1px solid rgba(177, 82, 255, 0.1);">
+                <strong style="display:block; color:var(--accent-purple); margin-bottom:4px;"><i class="fa-solid fa-key"></i> Cryptographic Key Status</strong>
+                Homomorphic additions active. Weights are masked locally prior to aggregations.
+              </div>
+              <button class="neon-btn" id="stats-fl-btn" style="justify-content:center; width:100%; margin-top:10px;">
+                <i class="fa-solid fa-gears"></i> Inspect Network Weights
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           Profile Section
+           ========================================== -->
+      <section class="view-container" id="view-profile">
+        <div class="profile-grid">
+          <!-- Left side card -->
+          <div class="profile-sidebar-card glass-card">
+            <div class="profile-avatar-lg" id="profile-avatar-letters">AM</div>
+            <h2 id="profile-full-name" style="margin-bottom:5px;">Alex Mercer</h2>
+            <span class="badge badge-difficulty" style="margin-bottom:15px;" id="profile-user-role">Student Node #402</span>
+            
+            <p id="profile-bio" style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px; line-height:1.4;">
+              CS Undergraduate student. Focused on machine learning algorithms and privacy engineering.
+            </p>
+            
+            <button class="neon-btn" id="profile-edit-btn" style="width:100%; justify-content:center;">
+              <i class="fa-solid fa-pen"></i> Edit Profile Bio
+            </button>
+          </div>
+
+          <!-- Right side details -->
+          <div style="display:flex; flex-direction:column; gap:30px;">
+            <div class="glass-card" style="padding:30px;">
+              <h3 class="section-title"><i class="fa-solid fa-trophy gradient-text"></i> Unlocked Achievements</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Earn awards by completing quizzes and running Federated aggregations.</p>
+              <div class="achievements-grid" id="profile-achievements-list">
+                <!-- Dynamically loaded achievements -->
+              </div>
+            </div>
+
+            <div class="glass-card" style="padding:30px;">
+              <h3 class="section-title"><i class="fa-solid fa-book-bookmark gradient-text"></i> Saved Notes & Bookmarks</h3>
+              <div style="display:flex; flex-direction:column; gap:12px;" id="profile-bookmarks-list">
+                <!-- Dynamically listed bookmarks -->
+                <p style="font-size:0.85rem; color:var(--text-muted);">No bookmarks saved yet. Click the bookmark icon inside topic pages.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           Settings Section
+           ========================================== -->
+      <section class="view-container" id="view-settings">
+        <h2 style="font-size:2rem; margin-bottom:10px;">System Preferences & Architecture</h2>
+        <p style="color:var(--text-secondary); margin-bottom:30px;">Manage privacy limits, theme settings, and inspect connection schemas of Firebase Collections.</p>
+
+        <div class="settings-layout-grid">
+          <!-- Controls -->
+          <div class="glass-card">
+            <h3 class="section-title" style="border-bottom:1px solid var(--border-glass); padding-bottom:10px; margin-bottom:20px;">System Configurations</h3>
+            <div class="settings-list">
+              
+              <div class="settings-item">
+                <div class="settings-meta">
+                  <span class="settings-title">Application Interface Theme</span>
+                  <span class="settings-desc">Toggle between visual Light theme and cyberpunk Dark default.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-theme-toggle">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-item">
+                <div class="settings-meta">
+                  <span class="settings-title">Federated Sync Automations</span>
+                  <span class="settings-desc">Allow client weights updates to run in the background.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-auto-sync" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-item">
+                <div class="settings-meta">
+                  <span class="settings-title">Differential Privacy (ε-budget)</span>
+                  <span class="settings-desc">Inject local Gaussian noise values to hide individual characteristics.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-diff-priv" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-item">
+                <div class="settings-meta">
+                  <span class="settings-title">AI Text-to-Speech Output</span>
+                  <span class="settings-desc">Enable voice icon readout features in the AI Tutor.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-speech-out" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-item">
+                <div class="settings-meta">
+                  <span class="settings-title">Offline Content Pre-caching</span>
+                  <span class="settings-desc">Store dynamic course schemas in service worker database.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="settings-offline-caching" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+            </div>
+
+            <button class="neon-btn" id="settings-reset-logs-btn" style="margin-top:30px; background:var(--pink-gradient); box-shadow:none;">
+              <i class="fa-solid fa-trash-can"></i> Delete Private Log Databases
+            </button>
+          </div>
+
+          <!-- Firebase DB Collections schema map -->
+          <div class="glass-card">
+            <h3 class="section-title" style="border-bottom:1px solid var(--border-glass); padding-bottom:10px; margin-bottom:20px;"><i class="fa-solid fa-fire-flame-curved" style="color:#f5820d;"></i> Firebase Architecture</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:20px;">Synchronized collections mapping for cloud backend integration readiness:</p>
+            
+            <div style="font-family:monospace; font-size:0.75rem; display:flex; flex-direction:column; gap:6px;">
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/users</span> <span style="opacity:0.6;">Profile configurations</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/courses</span> <span style="opacity:0.6;">Course definitions</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/skills</span> <span style="opacity:0.6;">Acquired skill lists</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/subjects</span> <span style="opacity:0.6;">Module topics definitions</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/syllabus</span> <span style="opacity:0.6;">Unit layout arrays</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/topics</span> <span style="opacity:0.6;">Generated topic blocks</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/lessons</span> <span style="opacity:0.6;">Lesson document keys</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/quizzes</span> <span style="opacity:0.6;">Topic evaluation questions</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/progress</span> <span style="opacity:0.6;">Lesson status weights</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/streaks</span> <span style="opacity:0.6;">Day metrics databases</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/bookmarks</span> <span style="opacity:0.6;">Saved course keys</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/notes</span> <span style="opacity:0.6;">User note documents</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/ai_chat_history</span> <span style="opacity:0.6;">Tutor threads list</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/notifications</span> <span style="opacity:0.6;">System alert alerts</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:var(--accent-cyan);">/settings</span> <span style="opacity:0.6;">Sync profile constants</span></div>
+            </div>
+            
+            <div style="margin-top:25px; padding:15px; border-radius:10px; background:rgba(245, 130, 13, 0.05); border:1px solid rgba(245, 130, 13, 0.15); font-size:0.8rem; line-height:1.4;">
+              <strong>Firebase Connection Status:</strong><br>
+              Client database is set to <span style="color:#4caf50; font-weight:600;">Mock-Offline Mode</span>. Connecting config inputs inside <code>auth.js</code> will instantly sync lists with real Firebase Firestore collections.
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================
+       Authentication Modal Overlay
+       ========================================== -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-content glass-card">
+      <div style="text-align:center; margin-bottom:30px;">
+        <div class="logo-icon" style="margin: 0 auto 15px auto;">SL</div>
+        <h2>Sign in to Smart Learn</h2>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-top:5px;">Secure decentralized identity gateway</p>
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:20px; border-bottom:1px solid var(--border-glass); padding-bottom:10px; margin-bottom:25px;">
+        <button id="auth-tab-login" style="background:transparent; border:none; color:var(--accent-cyan); font-weight:700; cursor:pointer;" class="gradient-text">Sign In</button>
+        <button id="auth-tab-register" style="background:transparent; border:none; color:var(--text-muted); font-weight:500; cursor:pointer;">Register</button>
+      </div>
+
+      <!-- Login form panel -->
+      <form id="auth-login-form">
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" required placeholder="name@domain.com">
+        </div>
+        <div class="form-group">
+          <div style="display:flex; justify-content:space-between; width:100%;">
+            <label for="login-password">Password</label>
+            <a href="#" id="auth-forgot-password-link" style="font-size:0.75rem; color:var(--accent-cyan); text-decoration:none;">Forgot?</a>
+          </div>
+          <input type="password" id="login-password" required placeholder="••••••••">
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:25px; font-size:0.8rem;">
+          <input type="checkbox" id="login-remember-me" style="accent-color:var(--accent-cyan);">
+          <label for="login-remember-me">Keep node logged in</label>
+        </div>
+        <button type="submit" class="neon-btn" style="width:100%; justify-content:center; margin-bottom:15px;">
+          Authorize Node <i class="fa-solid fa-right-to-bracket"></i>
+        </button>
+      </form>
+
+      <!-- Registration form panel -->
+      <form id="auth-register-form" style="display:none;">
+        <div class="form-group">
+          <label for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" required placeholder="Alex Mercer">
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" required placeholder="name@domain.com">
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Password</label>
+          <input type="password" id="reg-password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="neon-btn" style="width:100%; justify-content:center; margin-bottom:15px;">
+          Create Profile <i class="fa-solid fa-user-plus"></i>
+        </button>
+      </form>
+
+      <div style="display:flex; align-items:center; margin:20px 0; font-size:0.8rem; color:var(--text-muted);">
+        <hr style="flex-grow:1; border:0; border-top:1px solid var(--border-glass);">
+        <span style="padding: 0 10px;">OR SECURE SIGN IN</span>
+        <hr style="flex-grow:1; border:0; border-top:1px solid var(--border-glass);">
+      </div>
+
+      <button class="neon-btn-secondary" id="auth-google-btn" style="width:100%; justify-content:center;">
+        <i class="fa-brands fa-google"></i> Google Federated Login
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Federated Learning Aggregation Sync Modal
+       ========================================== -->
+  <div class="modal-overlay" id="fl-aggregation-modal">
+    <div class="modal-content glass-card fl-aggregation-modal">
+      <button class="modal-close" id="fl-modal-close-btn">&times;</button>
+      
+      <div style="text-align:center; margin-bottom:20px;">
+        <i class="fa-solid fa-shield-halved" style="font-size:3rem; color:var(--accent-cyan); margin-bottom:15px; filter:drop-shadow(0 0 10px var(--accent-cyan));"></i>
+        <h2>Federated Model Aggregation</h2>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-top:5px;">Secure Multiparty Private Computation Cycle</p>
+      </div>
+
+      <div class="fl-agg-progress-container">
+        <div class="fl-agg-bar-bg">
+          <div class="fl-agg-bar-fill" id="fl-progress-fill-bar"></div>
+        </div>
+        <div class="fl-agg-status-label" id="fl-progress-status-label">Ready to synchronize parameters...</div>
+      </div>
+
+      <!-- Animated weight modifications compared side by side -->
+      <div class="fl-weights-visualizer-grid" id="fl-modal-charts-grid" style="display:none;">
+        <div class="weight-column-local">
+          <div class="weight-column-label">Local Weights (Personalized)</div>
+          <div id="fl-local-weights-bars">
+            <!-- Dynamic local weights lists -->
+          </div>
+        </div>
+        <div>
+          <div class="weight-column-label">Aggregated Global Weights</div>
+          <div id="fl-global-weights-bars">
+            <!-- Dynamic global weights lists -->
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:25px; text-align:center;">
+        <button class="neon-btn" id="fl-modal-sync-trigger">
+          <i class="fa-solid fa-bolt"></i> Begin Secure Aggregation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Edit Profile Modal Overlay
+       ========================================== -->
+  <div class="modal-overlay" id="profile-edit-modal">
+    <div class="modal-content glass-card">
+      <button class="modal-close" id="profile-modal-close-btn">&times;</button>
+      <h2>Edit Profile Info</h2>
+      <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:25px;">Adjust your local identity parameters</p>
+      
+      <form id="profile-edit-form">
+        <div class="form-group">
+          <label for="edit-profile-name">Full Name</label>
+          <input type="text" id="edit-profile-name" required value="Alex Mercer">
+        </div>
+        <div class="form-group">
+          <label for="edit-profile-bio">Personal Bio</label>
+          <input type="text" id="edit-profile-bio" required value="CS Undergraduate student. Focused on machine learning.">
+        </div>
+        <button type="submit" class="neon-btn" style="width:100%; justify-content:center; margin-top:10px;">
+          Update Settings <i class="fa-solid fa-check"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Service scripts references
+       ========================================== -->
+  <script src="db.js"></script>
+  <script src="federated.js"></script>
+  <script src="ai.js"></script>
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,453 @@
+{
+  "metadata": {
+    "targetUrl": "http://localhost:8080/api/auth/user",
+    "concurrency": 100,
+    "plannedDurationSeconds": 60,
+    "actualDurationMs": 60057,
+    "testStartTimeStr": "9/7/2026, 2:14:49 pm",
+    "testEndTimeStr": "9/7/2026, 2:15:49 pm"
+  },
+  "summary": {
+    "totalRequests": 424105,
+    "passedRequests": 424105,
+    "failedRequests": 0,
+    "successRate": 100,
+    "averageRps": 7061.71,
+    "minLatency": 7,
+    "maxLatency": 91,
+    "avgLatency": 14.15,
+    "p50": 13,
+    "p90": 18,
+    "p95": 21,
+    "p99": 25
+  },
+  "timeline": [
+    {
+      "second": 1,
+      "rps": 4581,
+      "passed": 4581,
+      "failed": 0,
+      "avgLatency": 21.12180746561886
+    },
+    {
+      "second": 2,
+      "rps": 6185,
+      "passed": 6185,
+      "failed": 0,
+      "avgLatency": 16.100727566693614
+    },
+    {
+      "second": 3,
+      "rps": 6853,
+      "passed": 6853,
+      "failed": 0,
+      "avgLatency": 14.61491317671093
+    },
+    {
+      "second": 4,
+      "rps": 6882,
+      "passed": 6882,
+      "failed": 0,
+      "avgLatency": 14.528189479802384
+    },
+    {
+      "second": 5,
+      "rps": 6967,
+      "passed": 6967,
+      "failed": 0,
+      "avgLatency": 14.37175254772499
+    },
+    {
+      "second": 6,
+      "rps": 7009,
+      "passed": 7009,
+      "failed": 0,
+      "avgLatency": 14.289627621629334
+    },
+    {
+      "second": 7,
+      "rps": 6916,
+      "passed": 6916,
+      "failed": 0,
+      "avgLatency": 14.44491035280509
+    },
+    {
+      "second": 8,
+      "rps": 7101,
+      "passed": 7101,
+      "failed": 0,
+      "avgLatency": 14.069567666525842
+    },
+    {
+      "second": 9,
+      "rps": 6996,
+      "passed": 6996,
+      "failed": 0,
+      "avgLatency": 14.267295597484276
+    },
+    {
+      "second": 10,
+      "rps": 6936,
+      "passed": 6936,
+      "failed": 0,
+      "avgLatency": 14.440167243367936
+    },
+    {
+      "second": 11,
+      "rps": 6945,
+      "passed": 6945,
+      "failed": 0,
+      "avgLatency": 14.404607631389489
+    },
+    {
+      "second": 12,
+      "rps": 6939,
+      "passed": 6939,
+      "failed": 0,
+      "avgLatency": 14.395590142671855
+    },
+    {
+      "second": 13,
+      "rps": 7112,
+      "passed": 7112,
+      "failed": 0,
+      "avgLatency": 14.06988188976378
+    },
+    {
+      "second": 14,
+      "rps": 6844,
+      "passed": 6844,
+      "failed": 0,
+      "avgLatency": 14.679427235534774
+    },
+    {
+      "second": 15,
+      "rps": 7035,
+      "passed": 7035,
+      "failed": 0,
+      "avgLatency": 14.146695095948827
+    },
+    {
+      "second": 16,
+      "rps": 7053,
+      "passed": 7053,
+      "failed": 0,
+      "avgLatency": 14.178789167730043
+    },
+    {
+      "second": 17,
+      "rps": 7089,
+      "passed": 7089,
+      "failed": 0,
+      "avgLatency": 14.091268161941036
+    },
+    {
+      "second": 18,
+      "rps": 7198,
+      "passed": 7198,
+      "failed": 0,
+      "avgLatency": 13.899277577104751
+    },
+    {
+      "second": 19,
+      "rps": 6651,
+      "passed": 6651,
+      "failed": 0,
+      "avgLatency": 15.053225078935498
+    },
+    {
+      "second": 20,
+      "rps": 7281,
+      "passed": 7281,
+      "failed": 0,
+      "avgLatency": 13.76445543194616
+    },
+    {
+      "second": 21,
+      "rps": 7175,
+      "passed": 7175,
+      "failed": 0,
+      "avgLatency": 13.878606271777004
+    },
+    {
+      "second": 22,
+      "rps": 7162,
+      "passed": 7162,
+      "failed": 0,
+      "avgLatency": 13.945685562691985
+    },
+    {
+      "second": 23,
+      "rps": 6993,
+      "passed": 6993,
+      "failed": 0,
+      "avgLatency": 14.331188331188331
+    },
+    {
+      "second": 24,
+      "rps": 7006,
+      "passed": 7006,
+      "failed": 0,
+      "avgLatency": 14.264773051669998
+    },
+    {
+      "second": 25,
+      "rps": 7254,
+      "passed": 7254,
+      "failed": 0,
+      "avgLatency": 13.787841191066997
+    },
+    {
+      "second": 26,
+      "rps": 7159,
+      "passed": 7159,
+      "failed": 0,
+      "avgLatency": 13.949015225590166
+    },
+    {
+      "second": 27,
+      "rps": 7307,
+      "passed": 7307,
+      "failed": 0,
+      "avgLatency": 13.748597235527576
+    },
+    {
+      "second": 28,
+      "rps": 7161,
+      "passed": 7161,
+      "failed": 0,
+      "avgLatency": 13.90937019969278
+    },
+    {
+      "second": 29,
+      "rps": 7188,
+      "passed": 7188,
+      "failed": 0,
+      "avgLatency": 13.92195325542571
+    },
+    {
+      "second": 30,
+      "rps": 7082,
+      "passed": 7082,
+      "failed": 0,
+      "avgLatency": 14.100960180739904
+    },
+    {
+      "second": 31,
+      "rps": 7243,
+      "passed": 7243,
+      "failed": 0,
+      "avgLatency": 13.831975700676516
+    },
+    {
+      "second": 32,
+      "rps": 7267,
+      "passed": 7267,
+      "failed": 0,
+      "avgLatency": 13.78271638915646
+    },
+    {
+      "second": 33,
+      "rps": 7149,
+      "passed": 7149,
+      "failed": 0,
+      "avgLatency": 13.943908238914533
+    },
+    {
+      "second": 34,
+      "rps": 7149,
+      "passed": 7149,
+      "failed": 0,
+      "avgLatency": 13.984613232619948
+    },
+    {
+      "second": 35,
+      "rps": 7125,
+      "passed": 7125,
+      "failed": 0,
+      "avgLatency": 14.02259649122807
+    },
+    {
+      "second": 36,
+      "rps": 7273,
+      "passed": 7273,
+      "failed": 0,
+      "avgLatency": 13.773408497181356
+    },
+    {
+      "second": 37,
+      "rps": 7132,
+      "passed": 7132,
+      "failed": 0,
+      "avgLatency": 14.002664049355019
+    },
+    {
+      "second": 38,
+      "rps": 7209,
+      "passed": 7209,
+      "failed": 0,
+      "avgLatency": 13.917602996254681
+    },
+    {
+      "second": 39,
+      "rps": 6696,
+      "passed": 6696,
+      "failed": 0,
+      "avgLatency": 14.92084826762246
+    },
+    {
+      "second": 40,
+      "rps": 7284,
+      "passed": 7284,
+      "failed": 0,
+      "avgLatency": 13.701674903898956
+    },
+    {
+      "second": 41,
+      "rps": 7105,
+      "passed": 7105,
+      "failed": 0,
+      "avgLatency": 14.064883884588317
+    },
+    {
+      "second": 42,
+      "rps": 7131,
+      "passed": 7131,
+      "failed": 0,
+      "avgLatency": 14.02383957369233
+    },
+    {
+      "second": 43,
+      "rps": 7245,
+      "passed": 7245,
+      "failed": 0,
+      "avgLatency": 13.797377501725327
+    },
+    {
+      "second": 44,
+      "rps": 7195,
+      "passed": 7195,
+      "failed": 0,
+      "avgLatency": 13.984294649061848
+    },
+    {
+      "second": 45,
+      "rps": 7225,
+      "passed": 7225,
+      "failed": 0,
+      "avgLatency": 13.776193771626298
+    },
+    {
+      "second": 46,
+      "rps": 7296,
+      "passed": 7296,
+      "failed": 0,
+      "avgLatency": 13.72436951754386
+    },
+    {
+      "second": 47,
+      "rps": 7162,
+      "passed": 7162,
+      "failed": 0,
+      "avgLatency": 13.961742530019547
+    },
+    {
+      "second": 48,
+      "rps": 7173,
+      "passed": 7173,
+      "failed": 0,
+      "avgLatency": 13.89014359403318
+    },
+    {
+      "second": 49,
+      "rps": 7254,
+      "passed": 7254,
+      "failed": 0,
+      "avgLatency": 13.833471188309899
+    },
+    {
+      "second": 50,
+      "rps": 7183,
+      "passed": 7183,
+      "failed": 0,
+      "avgLatency": 13.872755116246694
+    },
+    {
+      "second": 51,
+      "rps": 7291,
+      "passed": 7291,
+      "failed": 0,
+      "avgLatency": 13.733369908105884
+    },
+    {
+      "second": 52,
+      "rps": 7095,
+      "passed": 7095,
+      "failed": 0,
+      "avgLatency": 14.127554615926709
+    },
+    {
+      "second": 53,
+      "rps": 7192,
+      "passed": 7192,
+      "failed": 0,
+      "avgLatency": 13.871245828698553
+    },
+    {
+      "second": 54,
+      "rps": 7276,
+      "passed": 7276,
+      "failed": 0,
+      "avgLatency": 13.746289169873556
+    },
+    {
+      "second": 55,
+      "rps": 7185,
+      "passed": 7185,
+      "failed": 0,
+      "avgLatency": 13.943354210160056
+    },
+    {
+      "second": 56,
+      "rps": 7308,
+      "passed": 7308,
+      "failed": 0,
+      "avgLatency": 13.660509031198686
+    },
+    {
+      "second": 57,
+      "rps": 7183,
+      "passed": 7183,
+      "failed": 0,
+      "avgLatency": 13.917583182514269
+    },
+    {
+      "second": 58,
+      "rps": 7232,
+      "passed": 7232,
+      "failed": 0,
+      "avgLatency": 13.872925884955752
+    },
+    {
+      "second": 59,
+      "rps": 7209,
+      "passed": 7209,
+      "failed": 0,
+      "avgLatency": 13.81398252184769
+    },
+    {
+      "second": 60,
+      "rps": 7264,
+      "passed": 7264,
+      "failed": 0,
+      "avgLatency": 13.782213656387665
+    },
+    {
+      "second": 61,
+      "rps": 314,
+      "passed": 314,
+      "failed": 0,
+      "avgLatency": 15.14968152866242
+    }
+  ]
+}
