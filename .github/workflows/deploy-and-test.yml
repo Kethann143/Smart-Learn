@@ -35,6 +35,8 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enablement: true
 
       # In a real build step we might compile or build. For this client-first app,
       # we deploy the root folder as it is. Let's make sure the essential assets exist.
