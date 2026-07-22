@@ -8,12 +8,27 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = 8080;
 
 app.use(cors());
 app.use(express.json());
+
+// Cryptographic password hashing helper functions using Node.js native crypto (scrypt)
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password, storedPassword) {
+  const [salt, hash] = storedPassword.split(':');
+  if (!salt || !hash) return false;
+  const verifyHash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(verifyHash, 'hex'));
+}
 
 // Initialize Database path and handle Electron writable path copy
 const dbDir = process.env.USER_DATA_PATH || __dirname;
@@ -133,7 +148,7 @@ function initializeTables() {
                 VALUES (?, ?, ?, ?, 0, 0, 0, 0, ?, '[]', ?)`,
           [
             'student@smartlearn.edu',
-            'password123',
+            hashPassword('password123'),
             'Alex Mercer',
             'Undergraduate student majoring in Computer Science. Focused on machine learning and database structures. Privacy advocate.',
             'June 2026',
@@ -186,7 +201,7 @@ app.post('/api/auth/register', (req, res) => {
 
     db.run(`INSERT INTO users (email, password, name, bio, streak, studyHours, completedTopics, completedLessons, joinedDate, skillsLearned, achievements) 
             VALUES (?, ?, ?, 'Eager learner looking forward to building privacy-preserving systems.', 1, 0, 0, 0, ?, '[]', ?)`,
-      [lowercaseEmail, password, name, 'July 2026', JSON.stringify(achievements)],
+      [lowercaseEmail, hashPassword(password), name, 'July 2026', JSON.stringify(achievements)],
       function(err) {
         if (err) return res.status(500).json({ error: err.message });
 
@@ -212,7 +227,7 @@ app.post('/api/auth/login', (req, res) => {
   db.get("SELECT * FROM users WHERE email = ?", [lowercaseEmail], (err, user) => {
     if (err) return res.status(500).json({ error: err.message });
     if (!user) return res.status(400).json({ error: 'No user found with this email address.' });
-    if (user.password !== password) return res.status(400).json({ error: 'Incorrect password. Please try again.' });
+    if (!verifyPassword(password, user.password)) return res.status(400).json({ error: 'Incorrect password. Please try again.' });
 
     user.skillsLearned = JSON.parse(user.skillsLearned || '[]');
     user.achievements = JSON.parse(user.achievements || '[]');
@@ -509,11 +524,11 @@ app.post('/api/chat/clear', requireUser, (req, res) => {
 });
 
 // Serve frontend client files statically
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'www')));
 
 // Fallback index.html router
 app.get('*all', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'www', 'index.html'));
 });
 
 // Start the Server

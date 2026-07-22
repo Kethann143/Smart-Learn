@@ -17,7 +17,8 @@ const files = [
   'auth.js',
   'ai.js',
   'federated.js',
-  'manifest.json'
+  'manifest.json',
+  'sw.js'
 ];
 
 files.forEach(file => {
