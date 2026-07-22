@@ -72,15 +72,8 @@ jobs:
           target: google_apis
           arch: x86_64
           script: |
-            # Start Appium Server in background
-            cd appium-tests
-            npx appium --log ./appium-server.log &
-            
-            # Install App APK on Emulator
-            adb install ../android/app/build/outputs/apk/debug/app-debug.apk
-            
-            # Run Jasmine test specs
-            npm test || true
+            chmod +x appium-tests/run-tests.sh
+            cd appium-tests && ./run-tests.sh
 
       - name: Generate Automation Reports
         run: |
