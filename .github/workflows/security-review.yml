@@ -261,6 +261,7 @@ jobs:
           name: security-reports
           path: |
             Vulnerability Test Results/findings.xlsx
+            Vulnerability Test Results/endpoint-inventory.xlsx
             Vulnerability Test Results/security-review.md
             Vulnerability Test Results/executive-summary.md
             Vulnerability Test Results/dependency-report.md

@@ -1,0 +1,53 @@
+name: Baseline Load Testing
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  load-test:
+    name: "Run Baseline Load Test"
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Node.js dependencies
+        run: |
+          npm install
+
+      - name: Install Python dependencies
+        run: |
+          pip install openpyxl
+
+      - name: Run Load Test Orchestrator
+        shell: pwsh
+        run: |
+          cd load-testing
+          ./run.ps1
+
+      - name: Upload Load Test Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-test-reports
+          path: |
+            SmartLearn_LoadTest_Report.xlsx
+            load-testing/load_test_results.json
+          retention-days: 90

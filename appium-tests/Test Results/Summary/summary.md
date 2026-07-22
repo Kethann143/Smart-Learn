@@ -1,13 +1,12 @@
 # Android Appium Test Summary
 
 Build Number: #Local-Run
-Execution Date: 9/7/2026, 2:02:16 pm
+Execution Date: 22/7/2026, 10:44:01 am
 
 Total Tests: 305
 Passed: 0
 Failed: 0
-Skipped: 305
 Pass Rate: 0.00%
 
 Report URL:
-https://user.github.io/smart-learn/reports/latest/execution-report.html
+https://Kethann143.github.io/Smart-Learn/reports/latest/execution-report.html

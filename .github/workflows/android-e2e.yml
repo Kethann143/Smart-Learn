@@ -92,14 +92,64 @@ jobs:
         if: always()
         with:
           name: appium-e2e-test-results
-          path: |
-            appium-tests/Test Results/Excel/Automation_Test_Report.xlsx
-            appium-tests/Test Results/HTML/execution-report.html
-            appium-tests/Test Results/Screenshots/
-            appium-tests/Test Results/Logs/
-            appium-tests/Test Results/Summary/summary.md
+          path: appium-tests/Test Results/
           retention-days: 90
 
-      - name: Publish Summary to GITHUB_STEP_SUMMARY
+      - name: Push Test Reports to GitHub Pages
+        if: always()
         run: |
-          cat "appium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY
+          if [ -d "appium-tests/Test Results" ]; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            
+            # Clone gh-pages branch or init new if absent
+            git clone --branch gh-pages "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" temp-gh-pages || {
+              mkdir temp-gh-pages
+              cd temp-gh-pages
+              git init
+              git checkout -b gh-pages
+              git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+              cd ..
+            }
+            
+            # Sync frontend index.html and scripts so web app stays active in root page
+            cp index.html styles.css app.js auth.js ai.js db.js federated.js manifest.json temp-gh-pages/ 2>/dev/null || true
+            mkdir -p temp-gh-pages/assets
+            cp -r assets/* temp-gh-pages/assets/ 2>/dev/null || true
+            
+            # Setup reports paths
+            RUN_NUM="${{ github.run_number }}"
+            mkdir -p temp-gh-pages/reports/latest/screenshots
+            mkdir -p temp-gh-pages/reports/latest/logs
+            mkdir -p temp-gh-pages/reports/history/build-${RUN_NUM}/screenshots
+            mkdir -p temp-gh-pages/reports/history/build-${RUN_NUM}/logs
+            
+            # Copy reports to latest/
+            cp "appium-tests/Test Results/HTML/execution-report.html" temp-gh-pages/reports/latest/
+            cp "appium-tests/Test Results/Summary/summary.md" temp-gh-pages/reports/latest/
+            cp -r "appium-tests/Test Results/Screenshots/"* temp-gh-pages/reports/latest/screenshots/ 2>/dev/null || true
+            cp -r "appium-tests/Test Results/Logs/"* temp-gh-pages/reports/latest/logs/ 2>/dev/null || true
+            
+            # Copy reports to history/build-xxx/
+            cp "appium-tests/Test Results/HTML/execution-report.html" temp-gh-pages/reports/history/build-${RUN_NUM}/
+            cp "appium-tests/Test Results/Summary/summary.md" temp-gh-pages/reports/history/build-${RUN_NUM}/
+            cp -r "appium-tests/Test Results/Screenshots/"* temp-gh-pages/reports/history/build-${RUN_NUM}/screenshots/ 2>/dev/null || true
+            cp -r "appium-tests/Test Results/Logs/"* temp-gh-pages/reports/history/build-${RUN_NUM}/logs/ 2>/dev/null || true
+            
+            # Commit and push report update
+            cd temp-gh-pages
+            git add .
+            git commit -m "Deploy Appium reports for build #${RUN_NUM}"
+            git push origin gh-pages
+          else
+            echo "No test results directory found. Skipping Pages deploy."
+          fi
+
+      - name: Publish Summary to GITHUB_STEP_SUMMARY
+        if: always()
+        run: |
+          if [ -f "appium-tests/Test Results/Summary/summary.md" ]; then
+            cat "appium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No summary.md file found."
+          fi

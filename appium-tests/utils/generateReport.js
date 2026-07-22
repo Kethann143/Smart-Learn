@@ -91,8 +91,8 @@ try {
 // Write summary.md
 const buildNum = process.env.GITHUB_RUN_NUMBER || 'Local-Run';
 const runDate = new Date().toLocaleString();
-const repoName = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[1] : 'smart-learn';
-const userOwner = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[0] : 'user';
+const repoName = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[1] : 'Smart-Learn';
+const userOwner = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[0] : 'Kethann143';
 
 const summaryMd = `# Android Appium Test Summary
 
@@ -102,7 +102,6 @@ Execution Date: ${runDate}
 Total Tests: ${totalCount}
 Passed: ${passedCount}
 Failed: ${failedCount}
-Skipped: ${skippedCount}
 Pass Rate: ${passRate}%
 
 Report URL:

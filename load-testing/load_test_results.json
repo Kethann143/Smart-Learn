@@ -3,451 +3,451 @@
     "targetUrl": "http://localhost:8080/api/auth/user",
     "concurrency": 100,
     "plannedDurationSeconds": 60,
-    "actualDurationMs": 60057,
-    "testStartTimeStr": "9/7/2026, 2:14:49 pm",
-    "testEndTimeStr": "9/7/2026, 2:15:49 pm"
+    "actualDurationMs": 60068,
+    "testStartTimeStr": "22/7/2026, 10:38:38 am",
+    "testEndTimeStr": "22/7/2026, 10:39:38 am"
   },
   "summary": {
-    "totalRequests": 424105,
-    "passedRequests": 424105,
+    "totalRequests": 210773,
+    "passedRequests": 210773,
     "failedRequests": 0,
     "successRate": 100,
-    "averageRps": 7061.71,
-    "minLatency": 7,
-    "maxLatency": 91,
-    "avgLatency": 14.15,
-    "p50": 13,
-    "p90": 18,
-    "p95": 21,
-    "p99": 25
+    "averageRps": 3508.91,
+    "minLatency": 8,
+    "maxLatency": 807,
+    "avgLatency": 28.47,
+    "p50": 17,
+    "p90": 27,
+    "p95": 147,
+    "p99": 243
   },
   "timeline": [
     {
       "second": 1,
-      "rps": 4581,
-      "passed": 4581,
+      "rps": 3610,
+      "passed": 3610,
       "failed": 0,
-      "avgLatency": 21.12180746561886
+      "avgLatency": 26.691135734072024
     },
     {
       "second": 2,
-      "rps": 6185,
-      "passed": 6185,
+      "rps": 4749,
+      "passed": 4749,
       "failed": 0,
-      "avgLatency": 16.100727566693614
+      "avgLatency": 21.112023583912404
     },
     {
       "second": 3,
-      "rps": 6853,
-      "passed": 6853,
+      "rps": 4954,
+      "passed": 4954,
       "failed": 0,
-      "avgLatency": 14.61491317671093
+      "avgLatency": 20.093257973354866
     },
     {
       "second": 4,
-      "rps": 6882,
-      "passed": 6882,
+      "rps": 5873,
+      "passed": 5873,
       "failed": 0,
-      "avgLatency": 14.528189479802384
+      "avgLatency": 17.030137919291676
     },
     {
       "second": 5,
-      "rps": 6967,
-      "passed": 6967,
+      "rps": 4759,
+      "passed": 4759,
       "failed": 0,
-      "avgLatency": 14.37175254772499
+      "avgLatency": 21.18827484765707
     },
     {
       "second": 6,
-      "rps": 7009,
-      "passed": 7009,
+      "rps": 5086,
+      "passed": 5086,
       "failed": 0,
-      "avgLatency": 14.289627621629334
+      "avgLatency": 19.493118364136848
     },
     {
       "second": 7,
-      "rps": 6916,
-      "passed": 6916,
+      "rps": 5269,
+      "passed": 5269,
       "failed": 0,
-      "avgLatency": 14.44491035280509
+      "avgLatency": 18.923135319795026
     },
     {
       "second": 8,
-      "rps": 7101,
-      "passed": 7101,
+      "rps": 5637,
+      "passed": 5637,
       "failed": 0,
-      "avgLatency": 14.069567666525842
+      "avgLatency": 17.7049849210573
     },
     {
       "second": 9,
-      "rps": 6996,
-      "passed": 6996,
+      "rps": 6110,
+      "passed": 6110,
       "failed": 0,
-      "avgLatency": 14.267295597484276
+      "avgLatency": 16.386743044189853
     },
     {
       "second": 10,
-      "rps": 6936,
-      "passed": 6936,
+      "rps": 6177,
+      "passed": 6177,
       "failed": 0,
-      "avgLatency": 14.440167243367936
+      "avgLatency": 16.191840699368626
     },
     {
       "second": 11,
-      "rps": 6945,
-      "passed": 6945,
+      "rps": 6359,
+      "passed": 6359,
       "failed": 0,
-      "avgLatency": 14.404607631389489
+      "avgLatency": 15.762698537505898
     },
     {
       "second": 12,
-      "rps": 6939,
-      "passed": 6939,
+      "rps": 6129,
+      "passed": 6129,
       "failed": 0,
-      "avgLatency": 14.395590142671855
+      "avgLatency": 16.322564855604504
     },
     {
       "second": 13,
-      "rps": 7112,
-      "passed": 7112,
+      "rps": 6134,
+      "passed": 6134,
       "failed": 0,
-      "avgLatency": 14.06988188976378
+      "avgLatency": 16.255624388653406
     },
     {
       "second": 14,
-      "rps": 6844,
-      "passed": 6844,
+      "rps": 6204,
+      "passed": 6204,
       "failed": 0,
-      "avgLatency": 14.679427235534774
+      "avgLatency": 16.086234687298518
     },
     {
       "second": 15,
-      "rps": 7035,
-      "passed": 7035,
+      "rps": 6263,
+      "passed": 6263,
       "failed": 0,
-      "avgLatency": 14.146695095948827
+      "avgLatency": 15.976209484272713
     },
     {
       "second": 16,
-      "rps": 7053,
-      "passed": 7053,
+      "rps": 5983,
+      "passed": 5983,
       "failed": 0,
-      "avgLatency": 14.178789167730043
+      "avgLatency": 16.684439244526157
     },
     {
       "second": 17,
-      "rps": 7089,
-      "passed": 7089,
+      "rps": 6345,
+      "passed": 6345,
       "failed": 0,
-      "avgLatency": 14.091268161941036
+      "avgLatency": 15.808353033884949
     },
     {
       "second": 18,
-      "rps": 7198,
-      "passed": 7198,
+      "rps": 6282,
+      "passed": 6282,
       "failed": 0,
-      "avgLatency": 13.899277577104751
+      "avgLatency": 15.902737981534543
     },
     {
       "second": 19,
-      "rps": 6651,
-      "passed": 6651,
+      "rps": 6349,
+      "passed": 6349,
       "failed": 0,
-      "avgLatency": 15.053225078935498
+      "avgLatency": 15.796188376122224
     },
     {
       "second": 20,
-      "rps": 7281,
-      "passed": 7281,
+      "rps": 5649,
+      "passed": 5649,
       "failed": 0,
-      "avgLatency": 13.76445543194616
+      "avgLatency": 17.743494423791823
     },
     {
       "second": 21,
-      "rps": 7175,
-      "passed": 7175,
+      "rps": 4970,
+      "passed": 4970,
       "failed": 0,
-      "avgLatency": 13.878606271777004
+      "avgLatency": 21.248088531187122
     },
     {
       "second": 22,
-      "rps": 7162,
-      "passed": 7162,
+      "rps": 642,
+      "passed": 642,
       "failed": 0,
-      "avgLatency": 13.945685562691985
+      "avgLatency": 158.1043613707165
     },
     {
       "second": 23,
-      "rps": 6993,
-      "passed": 6993,
+      "rps": 624,
+      "passed": 624,
       "failed": 0,
-      "avgLatency": 14.331188331188331
+      "avgLatency": 166.56730769230768
     },
     {
       "second": 24,
-      "rps": 7006,
-      "passed": 7006,
+      "rps": 417,
+      "passed": 417,
       "failed": 0,
-      "avgLatency": 14.264773051669998
+      "avgLatency": 245.8729016786571
     },
     {
       "second": 25,
-      "rps": 7254,
-      "passed": 7254,
+      "rps": 237,
+      "passed": 237,
       "failed": 0,
-      "avgLatency": 13.787841191066997
+      "avgLatency": 413.8776371308017
     },
     {
       "second": 26,
-      "rps": 7159,
-      "passed": 7159,
+      "rps": 462,
+      "passed": 462,
       "failed": 0,
-      "avgLatency": 13.949015225590166
+      "avgLatency": 209.0151515151515
     },
     {
       "second": 27,
-      "rps": 7307,
-      "passed": 7307,
+      "rps": 468,
+      "passed": 468,
       "failed": 0,
-      "avgLatency": 13.748597235527576
+      "avgLatency": 215.32264957264957
     },
     {
       "second": 28,
-      "rps": 7161,
-      "passed": 7161,
+      "rps": 418,
+      "passed": 418,
       "failed": 0,
-      "avgLatency": 13.90937019969278
+      "avgLatency": 244.2511961722488
     },
     {
       "second": 29,
-      "rps": 7188,
-      "passed": 7188,
+      "rps": 588,
+      "passed": 588,
       "failed": 0,
-      "avgLatency": 13.92195325542571
+      "avgLatency": 159.0595238095238
     },
     {
       "second": 30,
-      "rps": 7082,
-      "passed": 7082,
+      "rps": 678,
+      "passed": 678,
       "failed": 0,
-      "avgLatency": 14.100960180739904
+      "avgLatency": 168.71681415929203
     },
     {
       "second": 31,
-      "rps": 7243,
-      "passed": 7243,
+      "rps": 633,
+      "passed": 633,
       "failed": 0,
-      "avgLatency": 13.831975700676516
+      "avgLatency": 135.24644549763033
     },
     {
       "second": 32,
-      "rps": 7267,
-      "passed": 7267,
+      "rps": 640,
+      "passed": 640,
       "failed": 0,
-      "avgLatency": 13.78271638915646
+      "avgLatency": 165.1671875
     },
     {
       "second": 33,
-      "rps": 7149,
-      "passed": 7149,
+      "rps": 470,
+      "passed": 470,
       "failed": 0,
-      "avgLatency": 13.943908238914533
+      "avgLatency": 217.27872340425532
     },
     {
       "second": 34,
-      "rps": 7149,
-      "passed": 7149,
+      "rps": 466,
+      "passed": 466,
       "failed": 0,
-      "avgLatency": 13.984613232619948
+      "avgLatency": 208.48068669527896
     },
     {
       "second": 35,
-      "rps": 7125,
-      "passed": 7125,
+      "rps": 461,
+      "passed": 461,
       "failed": 0,
-      "avgLatency": 14.02259649122807
+      "avgLatency": 219.64208242950107
     },
     {
       "second": 36,
-      "rps": 7273,
-      "passed": 7273,
+      "rps": 455,
+      "passed": 455,
       "failed": 0,
-      "avgLatency": 13.773408497181356
+      "avgLatency": 221.3802197802198
     },
     {
       "second": 37,
-      "rps": 7132,
-      "passed": 7132,
+      "rps": 404,
+      "passed": 404,
       "failed": 0,
-      "avgLatency": 14.002664049355019
+      "avgLatency": 247.60148514851485
     },
     {
       "second": 38,
-      "rps": 7209,
-      "passed": 7209,
+      "rps": 388,
+      "passed": 388,
       "failed": 0,
-      "avgLatency": 13.917602996254681
+      "avgLatency": 248.60824742268042
     },
     {
       "second": 39,
-      "rps": 6696,
-      "passed": 6696,
+      "rps": 503,
+      "passed": 503,
       "failed": 0,
-      "avgLatency": 14.92084826762246
+      "avgLatency": 201.1013916500994
     },
     {
       "second": 40,
-      "rps": 7284,
-      "passed": 7284,
+      "rps": 474,
+      "passed": 474,
       "failed": 0,
-      "avgLatency": 13.701674903898956
+      "avgLatency": 208.37974683544303
     },
     {
       "second": 41,
-      "rps": 7105,
-      "passed": 7105,
+      "rps": 628,
+      "passed": 628,
       "failed": 0,
-      "avgLatency": 14.064883884588317
+      "avgLatency": 157.5063694267516
     },
     {
       "second": 42,
-      "rps": 7131,
-      "passed": 7131,
+      "rps": 541,
+      "passed": 541,
       "failed": 0,
-      "avgLatency": 14.02383957369233
+      "avgLatency": 185.90388170055454
     },
     {
       "second": 43,
-      "rps": 7245,
-      "passed": 7245,
+      "rps": 579,
+      "passed": 579,
       "failed": 0,
-      "avgLatency": 13.797377501725327
+      "avgLatency": 172.8082901554404
     },
     {
       "second": 44,
-      "rps": 7195,
-      "passed": 7195,
+      "rps": 556,
+      "passed": 556,
       "failed": 0,
-      "avgLatency": 13.984294649061848
+      "avgLatency": 177.4820143884892
     },
     {
       "second": 45,
-      "rps": 7225,
-      "passed": 7225,
+      "rps": 541,
+      "passed": 541,
       "failed": 0,
-      "avgLatency": 13.776193771626298
+      "avgLatency": 202.35489833641404
     },
     {
       "second": 46,
-      "rps": 7296,
-      "passed": 7296,
+      "rps": 426,
+      "passed": 426,
       "failed": 0,
-      "avgLatency": 13.72436951754386
+      "avgLatency": 213.58450704225353
     },
     {
       "second": 47,
-      "rps": 7162,
-      "passed": 7162,
+      "rps": 4467,
+      "passed": 4467,
       "failed": 0,
-      "avgLatency": 13.961742530019547
+      "avgLatency": 20.731811058876204
     },
     {
       "second": 48,
-      "rps": 7173,
-      "passed": 7173,
+      "rps": 5981,
+      "passed": 5981,
       "failed": 0,
-      "avgLatency": 13.89014359403318
+      "avgLatency": 16.732151814077913
     },
     {
       "second": 49,
-      "rps": 7254,
-      "passed": 7254,
+      "rps": 5939,
+      "passed": 5939,
       "failed": 0,
-      "avgLatency": 13.833471188309899
+      "avgLatency": 16.826233372621655
     },
     {
       "second": 50,
-      "rps": 7183,
-      "passed": 7183,
+      "rps": 6042,
+      "passed": 6042,
       "failed": 0,
-      "avgLatency": 13.872755116246694
+      "avgLatency": 16.636378682555446
     },
     {
       "second": 51,
-      "rps": 7291,
-      "passed": 7291,
+      "rps": 6248,
+      "passed": 6248,
       "failed": 0,
-      "avgLatency": 13.733369908105884
+      "avgLatency": 15.901728553137003
     },
     {
       "second": 52,
-      "rps": 7095,
-      "passed": 7095,
+      "rps": 6034,
+      "passed": 6034,
       "failed": 0,
-      "avgLatency": 14.127554615926709
+      "avgLatency": 16.587669870732515
     },
     {
       "second": 53,
-      "rps": 7192,
-      "passed": 7192,
+      "rps": 6166,
+      "passed": 6166,
       "failed": 0,
-      "avgLatency": 13.871245828698553
+      "avgLatency": 16.21050924424262
     },
     {
       "second": 54,
-      "rps": 7276,
-      "passed": 7276,
+      "rps": 5142,
+      "passed": 5142,
       "failed": 0,
-      "avgLatency": 13.746289169873556
+      "avgLatency": 19.456242707117852
     },
     {
       "second": 55,
-      "rps": 7185,
-      "passed": 7185,
+      "rps": 5316,
+      "passed": 5316,
       "failed": 0,
-      "avgLatency": 13.943354210160056
+      "avgLatency": 18.81151241534989
     },
     {
       "second": 56,
-      "rps": 7308,
-      "passed": 7308,
+      "rps": 5069,
+      "passed": 5069,
       "failed": 0,
-      "avgLatency": 13.660509031198686
+      "avgLatency": 19.70230814756362
     },
     {
       "second": 57,
-      "rps": 7183,
-      "passed": 7183,
+      "rps": 5204,
+      "passed": 5204,
       "failed": 0,
-      "avgLatency": 13.917583182514269
+      "avgLatency": 19.215987701767872
     },
     {
       "second": 58,
-      "rps": 7232,
-      "passed": 7232,
+      "rps": 5516,
+      "passed": 5516,
       "failed": 0,
-      "avgLatency": 13.872925884955752
+      "avgLatency": 18.16316171138506
     },
     {
       "second": 59,
-      "rps": 7209,
-      "passed": 7209,
+      "rps": 5840,
+      "passed": 5840,
       "failed": 0,
-      "avgLatency": 13.81398252184769
+      "avgLatency": 17.115068493150684
     },
     {
       "second": 60,
-      "rps": 7264,
-      "passed": 7264,
+      "rps": 5921,
+      "passed": 5921,
       "failed": 0,
-      "avgLatency": 13.782213656387665
+      "avgLatency": 16.91825705117379
     },
     {
       "second": 61,
-      "rps": 314,
-      "passed": 314,
+      "rps": 298,
+      "passed": 298,
       "failed": 0,
-      "avgLatency": 15.14968152866242
+      "avgLatency": 18.325503355704697
     }
   ]
 }
