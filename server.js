@@ -524,11 +524,12 @@ app.post('/api/chat/clear', requireUser, (req, res) => {
 });
 
 // Serve frontend client files statically
-app.use(express.static(path.join(__dirname, 'www')));
+const publicDir = path.join(__dirname, 'www');
+app.use(express.static(publicDir));
 
 // Fallback index.html router
 app.get('*all', (req, res) => {
-  res.sendFile(path.join(__dirname, 'www', 'index.html'));
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 // Start the Server
