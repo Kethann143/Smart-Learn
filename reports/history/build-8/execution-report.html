@@ -1,0 +1,2578 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appium E2E Execution Report</title>
+  <style>
+    :root {
+      --bg-dark: #0A081D;
+      --bg-card: #13112E;
+      --text-main: #E0E0FF;
+      --text-muted: #8E8CAF;
+      --primary: #00F2FE;
+      --success: #00FF80;
+      --fail: #FF4466;
+      --warning: #FFAA00;
+    }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      margin: 0;
+      padding: 24px;
+    }
+    header {
+      border-bottom: 2px solid #201D4C;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    h1 { color: var(--primary); margin: 0; font-size: 2rem; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .metric-card {
+      background-color: var(--bg-card);
+      border: 1px solid #201D4C;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .metric-card.success { border-color: var(--success); }
+    .metric-card.fail { border-color: var(--fail); }
+    .metric-value { font-size: 2.2rem; font-weight: bold; margin-top: 8px; }
+    .table-container {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid #201D4C;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #201D4C;
+    }
+    th { color: var(--primary); font-weight: bold; }
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+    .status-badge.pass { background-color: rgba(0,255,128,0.15); color: var(--success); }
+    .status-badge.fail { background-color: rgba(255,68,102,0.15); color: var(--fail); }
+    .status-badge.skip { background-color: rgba(255,170,0,0.15); color: var(--warning); }
+    .error-log {
+      font-family: Consolas, monospace;
+      font-size: 0.8rem;
+      background-color: #050410;
+      padding: 8px;
+      border-radius: 4px;
+      color: #FFC0CB;
+      margin-top: 4px;
+    }
+    .screenshot-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📱 Smart Learn — Appium E2E Automation Report</h1>
+    <p style="color: var(--text-muted); margin: 6px 0 0 0;">Build: #Local-Run | Date: 22/7/2026, 10:44:01 am</p>
+  </header>
+
+  <section class="metrics">
+    <div class="metric-card">
+      <div style="color: var(--text-muted);">TOTAL TESTS</div>
+      <div class="metric-value" style="color: var(--primary);">305</div>
+    </div>
+    <div class="metric-card success">
+      <div style="color: var(--success);">PASSED</div>
+      <div class="metric-value" style="color: var(--success);">0</div>
+    </div>
+    <div class="metric-card fail">
+      <div style="color: var(--fail);">FAILED</div>
+      <div class="metric-value" style="color: var(--fail);">0</div>
+    </div>
+    <div class="metric-card">
+      <div style="color: var(--warning);">SKIPPED</div>
+      <div class="metric-value" style="color: var(--warning);">305</div>
+    </div>
+    <div class="metric-card">
+      <div style="color: #B152FF;">PASS RATE</div>
+      <div class="metric-value" style="color: #B152FF;">0.00%</div>
+    </div>
+  </section>
+
+  <h2 style="color: var(--primary); margin-bottom: 12px;">Test Case Outcomes</h2>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 10%;">ID</th>
+          <th style="width: 25%;">Module</th>
+          <th style="width: 40%;">Title</th>
+          <th style="width: 10%;">Status</th>
+          <th style="width: 15%;">Artifacts / Errors</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+            <tr>
+              <td><strong>TC001</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC002</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC003</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC004</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC005</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC006</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC007</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC008</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC009</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC010</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC011</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC012</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC013</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC014</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC015</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC016</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC017</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC018</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC019</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC020</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC021</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC022</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC023</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC024</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC025</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC026</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC027</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC028</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC029</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC030</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC031</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC032</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC033</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC034</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC035</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC036</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC037</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC038</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC039</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC040</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Authentication</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC041</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC042</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC043</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC044</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC045</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC046</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC047</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC048</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC049</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC050</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC051</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC052</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC053</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC054</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC055</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC056</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC057</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC058</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC059</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC060</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC061</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC062</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC063</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC064</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC065</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC066</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC067</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC068</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC069</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC070</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC071</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC072</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC073</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC074</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC075</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Navigation</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC076</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC077</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC078</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC079</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC080</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC081</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC082</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC083</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC084</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC085</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC086</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC087</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC088</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC089</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC090</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC091</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC092</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC093</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC094</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC095</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC096</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC097</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC098</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC099</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC100</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC101</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC102</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC103</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC104</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC105</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC106</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC107</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC108</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC109</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC110</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC111</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC112</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC113</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC114</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC115</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Home</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC116</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC117</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC118</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC119</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC120</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC121</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC122</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC123</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC124</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC125</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC126</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC127</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC128</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC129</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC130</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC131</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC132</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC133</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC134</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC135</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC136</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC137</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC138</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC139</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC140</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC141</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC142</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC143</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC144</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC145</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC146</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC147</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC148</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC149</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC150</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC151</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC152</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC153</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC154</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC155</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC156</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC157</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC158</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC159</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC160</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC161</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC162</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC163</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC164</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC165</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Courses</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC166</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC167</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC168</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC169</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC170</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC171</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC172</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC173</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC174</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC175</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC176</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC177</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC178</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC179</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC180</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC181</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC182</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC183</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC184</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC185</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC186</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC187</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC188</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC189</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC190</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC191</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC192</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC193</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC194</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC195</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC196</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC197</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC198</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC199</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC200</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">AI Tutor</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC201</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC202</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC203</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC204</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC205</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC206</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC207</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC208</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC209</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC210</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC211</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC212</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC213</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC214</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC215</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC216</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC217</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC218</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC219</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC220</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC221</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC222</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC223</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC224</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC225</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC226</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC227</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC228</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC229</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC230</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC231</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC232</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC233</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC234</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC235</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Progress</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC236</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC237</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC238</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC239</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC240</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC241</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC242</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC243</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC244</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC245</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC246</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC247</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC248</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC249</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC250</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC251</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC252</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC253</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC254</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC255</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC256</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC257</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC258</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC259</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC260</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC261</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC262</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC263</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC264</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC265</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC266</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC267</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC268</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC269</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC270</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Profile</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC271</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC272</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC273</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC274</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC275</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC276</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC277</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC278</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC279</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC280</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC281</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC282</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC283</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC284</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC285</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC286</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC287</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC288</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC289</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC290</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC291</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC292</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC293</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC294</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC295</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC296</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC297</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC298</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC299</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC300</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC301</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC302</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC303</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC304</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+            <tr>
+              <td><strong>TC305</strong></td>
+              <td><span style="color: #B152FF; font-weight: bold;">Settings</span></td>
+              <td>UI/UX validation or functional run check</td>
+              <td><span class="status-badge skip">Skip</span></td>
+              <td>Not executed</td>
+            </tr>
+          
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
