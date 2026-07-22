@@ -22,8 +22,7 @@
     "@wdio/spec-reporter": "^8.0.0",
     "appium": "^2.11.0",
     "appium-uiautomator2-driver": "^3.0.0",
-    "chai": "^4.3.10",
-    "wdio-allure-reporter": "^1.7.6"
+    "chai": "^4.3.10"
   },
   "devDependencies": {
     "@wdio/allure-reporter": "^8.0.0"
