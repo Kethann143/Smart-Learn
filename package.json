@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "AI-Driven Smart Learning Companion: A Federated Learning Approach for Privacy-Preserving Personalized Academic Guidance.",
   "author": "Smart Learn Team <team@smartlearn.edu>",
-  "main": "electron-main.js",
+  "main": "app/main/electron-main.js",
   "scripts": {
-    "dev": "node server.js",
-    "start": "electron .",
+    "dev": "node backend/server.js",
+    "start": "electron app/main/electron-main.js",
     "build": "electron-builder",
-    "build-mobile": "node build-mobile.js"
+    "build-mobile": "node scripts/build-mobile.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.1",
@@ -35,18 +35,18 @@
       "!node_modules/.cache",
       "!dist/**",
       "!*.log",
-      "!peek_db.js",
-      "!make-icon.js"
+      "!scripts/peek_db.js",
+      "!scripts/make-icon.js"
     ],
     "asarUnpack": [
       "node_modules/sqlite3/**",
       "node_modules/express/**",
-      "server.js",
-      "smart_learn.db",
-      "db.js",
-      "auth.js",
-      "ai.js",
-      "federated.js"
+      "backend/server.js",
+      "database/smart_learn.db",
+      "frontend/utils/db.js",
+      "frontend/utils/auth.js",
+      "frontend/utils/ai.js",
+      "frontend/utils/federated.js"
     ],
     "win": {
       "target": [

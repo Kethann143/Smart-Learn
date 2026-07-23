@@ -39,7 +39,7 @@ jobs:
       - name: Build Web Application
         run: |
           npm install
-          node build-mobile.js
+          node scripts/build-mobile.js
 
       - name: Build Capacitor Android App
         run: |
@@ -62,7 +62,7 @@ jobs:
 
       - name: Install Appium testing packages
         run: |
-          cd appium-tests
+          cd tests/appium-tests
           npm install
 
       - name: Run Appium Tests on Android Emulator
@@ -72,12 +72,12 @@ jobs:
           target: google_apis
           arch: x86_64
           script: |
-            chmod +x appium-tests/run-tests.sh
-            cd appium-tests && ./run-tests.sh
+            chmod +x tests/appium-tests/run-tests.sh
+            cd tests/appium-tests && ./run-tests.sh
 
       - name: Generate Automation Reports
         run: |
-          cd appium-tests
+          cd tests/appium-tests
           npm run report
 
       - name: Upload Test Results Artifacts
@@ -85,13 +85,13 @@ jobs:
         if: always()
         with:
           name: appium-e2e-test-results
-          path: appium-tests/Test Results/
+          path: tests/appium-tests/Test Results/
           retention-days: 90
 
       - name: Push Test Reports to GitHub Pages
         if: always()
         run: |
-          if [ -d "appium-tests/Test Results" ]; then
+          if [ -d "tests/appium-tests/Test Results" ]; then
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             
@@ -105,10 +105,8 @@ jobs:
               cd ..
             }
             
-            # Sync frontend index.html and scripts so web app stays active in root page
-            cp index.html styles.css app.js auth.js ai.js db.js federated.js manifest.json temp-gh-pages/ 2>/dev/null || true
-            mkdir -p temp-gh-pages/assets
-            cp -r assets/* temp-gh-pages/assets/ 2>/dev/null || true
+            # Sync frontend index.html and scripts from build www output
+            cp -r www/* temp-gh-pages/ 2>/dev/null || true
             
             # Setup reports paths
             RUN_NUM="${{ github.run_number }}"
@@ -118,16 +116,16 @@ jobs:
             mkdir -p temp-gh-pages/reports/history/build-${RUN_NUM}/logs
             
             # Copy reports to latest/
-            cp "appium-tests/Test Results/HTML/execution-report.html" temp-gh-pages/reports/latest/
-            cp "appium-tests/Test Results/Summary/summary.md" temp-gh-pages/reports/latest/
-            cp -r "appium-tests/Test Results/Screenshots/"* temp-gh-pages/reports/latest/screenshots/ 2>/dev/null || true
-            cp -r "appium-tests/Test Results/Logs/"* temp-gh-pages/reports/latest/logs/ 2>/dev/null || true
+            cp "tests/appium-tests/Test Results/HTML/execution-report.html" temp-gh-pages/reports/latest/
+            cp "tests/appium-tests/Test Results/Summary/summary.md" temp-gh-pages/reports/latest/
+            cp -r "tests/appium-tests/Test Results/Screenshots/"* temp-gh-pages/reports/latest/screenshots/ 2>/dev/null || true
+            cp -r "tests/appium-tests/Test Results/Logs/"* temp-gh-pages/reports/latest/logs/ 2>/dev/null || true
             
             # Copy reports to history/build-xxx/
-            cp "appium-tests/Test Results/HTML/execution-report.html" temp-gh-pages/reports/history/build-${RUN_NUM}/
-            cp "appium-tests/Test Results/Summary/summary.md" temp-gh-pages/reports/history/build-${RUN_NUM}/
-            cp -r "appium-tests/Test Results/Screenshots/"* temp-gh-pages/reports/history/build-${RUN_NUM}/screenshots/ 2>/dev/null || true
-            cp -r "appium-tests/Test Results/Logs/"* temp-gh-pages/reports/history/build-${RUN_NUM}/logs/ 2>/dev/null || true
+            cp "tests/appium-tests/Test Results/HTML/execution-report.html" temp-gh-pages/reports/history/build-${RUN_NUM}/
+            cp "tests/appium-tests/Test Results/Summary/summary.md" temp-gh-pages/reports/history/build-${RUN_NUM}/
+            cp -r "tests/appium-tests/Test Results/Screenshots/"* temp-gh-pages/reports/history/build-${RUN_NUM}/screenshots/ 2>/dev/null || true
+            cp -r "tests/appium-tests/Test Results/Logs/"* temp-gh-pages/reports/history/build-${RUN_NUM}/logs/ 2>/dev/null || true
             
             # Commit and push report update
             cd temp-gh-pages
@@ -141,8 +139,8 @@ jobs:
       - name: Publish Summary to GITHUB_STEP_SUMMARY
         if: always()
         run: |
-          if [ -f "appium-tests/Test Results/Summary/summary.md" ]; then
-            cat "appium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY
+          if [ -f "tests/appium-tests/Test Results/Summary/summary.md" ]; then
+            cat "tests/appium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY
           else
             echo "No summary.md file found."
           fi

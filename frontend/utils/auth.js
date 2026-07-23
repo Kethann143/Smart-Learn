@@ -8,8 +8,76 @@ class AuthSystem {
     this.sessionUserKey = 'fl_session_user';
     this.usersDbKey = 'fl_users_database';
     this.settingsKey = 'fl_user_settings';
+    this.firebaseConfigKey = 'fl_firebase_config';
+    this.firebaseConnected = false;
+    this.firestore = null;
     
     this.initDatabase();
+    this.initFirebase();
+  }
+
+  initFirebase() {
+    const configStr = localStorage.getItem(this.firebaseConfigKey);
+    if (configStr) {
+      try {
+        const config = JSON.parse(configStr);
+        if (config && config.projectId && config.apiKey) {
+          if (typeof firebase !== 'undefined') {
+            if (!firebase.apps.length) {
+              firebase.initializeApp(config);
+            }
+            this.firestore = firebase.firestore();
+            this.firebaseConnected = true;
+            console.log('[Firebase] Initialized successfully with project:', config.projectId);
+          } else {
+            console.warn('[Firebase] Firebase SDK is not loaded.');
+          }
+        }
+      } catch (e) {
+        console.error('[Firebase] Init error on startup:', e);
+        this.firebaseConnected = false;
+      }
+    }
+  }
+
+  connectFirebase(config) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (typeof firebase === 'undefined') {
+          return reject(new Error("Firebase library is not loaded. Ensure scripts are included."));
+        }
+        if (!config || !config.apiKey || !config.projectId) {
+          return reject(new Error("API Key and Project ID are required."));
+        }
+        
+        if (firebase.apps.length > 0) {
+          await firebase.app().delete();
+        }
+        
+        firebase.initializeApp(config);
+        const firestore = firebase.firestore();
+        
+        firestore.collection('connections_test').doc('ping').get()
+          .then(() => {
+            this.firestore = firestore;
+            this.firebaseConnected = true;
+            localStorage.setItem(this.firebaseConfigKey, JSON.stringify(config));
+            resolve(config);
+          })
+          .catch(err => {
+            if (err.code === 'permission-denied' || err.message.toLowerCase().includes('permission')) {
+              this.firestore = firestore;
+              this.firebaseConnected = true;
+              localStorage.setItem(this.firebaseConfigKey, JSON.stringify(config));
+              resolve(config);
+            } else {
+              reject(err);
+            }
+          });
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   initDatabase() {
@@ -67,6 +135,33 @@ class AuthSystem {
   async fetchUserDetails() {
     const user = this.getCurrentUser();
     if (!user) return null;
+
+    if (this.firebaseConnected) {
+      try {
+        const userDoc = await this.firestore.collection('users').doc(user.email.toLowerCase().trim()).get();
+        if (userDoc.exists) {
+          const fullUser = userDoc.data();
+          const sessionData = { 
+            email: fullUser.email, 
+            name: fullUser.name,
+            bio: fullUser.bio,
+            streak: fullUser.streak,
+            studyHours: fullUser.studyHours,
+            completedTopics: fullUser.completedTopics,
+            completedLessons: fullUser.completedLessons,
+            skillsLearned: fullUser.skillsLearned,
+            achievements: fullUser.achievements
+          };
+          const rememberMe = !!localStorage.getItem(this.sessionUserKey);
+          const storage = rememberMe ? localStorage : sessionStorage;
+          storage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+          return fullUser;
+        }
+      } catch (err) {
+        console.warn("Failed to fetch user details from Firebase:", err);
+      }
+    }
+
     try {
       const res = await fetch('/api/auth/user', {
         headers: { 'x-user-email': user.email }
@@ -101,6 +196,33 @@ class AuthSystem {
   // REST Email Sign-In
   loginWithEmail(email, password, rememberMe = false) {
     return new Promise(async (resolve, reject) => {
+      const lowercaseEmail = email.toLowerCase().trim();
+      
+      if (this.firebaseConnected) {
+        try {
+          const userDoc = await this.firestore.collection('users').doc(lowercaseEmail).get();
+          if (userDoc.exists) {
+            const user = userDoc.data();
+            if (user.password === password) {
+              const settingsDoc = await this.firestore.collection('settings').doc(lowercaseEmail).get();
+              if (settingsDoc.exists) {
+                localStorage.setItem(this.settingsKey, JSON.stringify(settingsDoc.data()));
+              }
+              const sessionData = { email: user.email, name: user.name };
+              const storage = rememberMe ? localStorage : sessionStorage;
+              storage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+              resolve(user);
+              return;
+            } else {
+              reject("Incorrect password (Firebase).");
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Firebase login failed, falling back to REST/local:", err);
+        }
+      }
+
       try {
         const res = await fetch('/api/auth/login', {
           method: 'POST',
@@ -116,12 +238,16 @@ class AuthSystem {
         const sessionData = { email: data.email, name: data.name };
         const storage = rememberMe ? localStorage : sessionStorage;
         storage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+
+        if (this.firebaseConnected) {
+          this.firestore.collection('users').doc(lowercaseEmail).set(data, { merge: true }).catch(console.error);
+        }
+
         resolve(data);
       } catch (e) {
         console.warn("Network error during login, attempting local login:", e);
-        // Fallback to local storage auth
         const users = JSON.parse(localStorage.getItem(this.usersDbKey)) || [];
-        const user = users.find(u => u.email === email.toLowerCase().trim());
+        const user = users.find(u => u.email === lowercaseEmail);
         if (!user) {
           reject("No user found (Offline). Check network connection.");
           return;
@@ -133,6 +259,11 @@ class AuthSystem {
         const sessionData = { email: user.email, name: user.name };
         const storage = rememberMe ? localStorage : sessionStorage;
         storage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+
+        if (this.firebaseConnected) {
+          this.firestore.collection('users').doc(lowercaseEmail).set(user, { merge: true }).catch(console.error);
+        }
+
         resolve(user);
       }
     });
@@ -150,10 +281,14 @@ class AuthSystem {
         }
         const sessionData = { email: data.email, name: data.name };
         sessionStorage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+
+        if (this.firebaseConnected) {
+          this.firestore.collection('users').doc(data.email.toLowerCase()).set(data, { merge: true }).catch(console.error);
+        }
+
         resolve(data);
       } catch (e) {
         console.warn("Google login failed, fallback to local:", e);
-        // Simulated offline Google login
         const googleUser = {
           email: 'google.student@gmail.com',
           name: 'Jordan Sparks',
@@ -178,6 +313,11 @@ class AuthSystem {
         }
         const sessionData = { email: googleUser.email, name: googleUser.name };
         sessionStorage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+
+        if (this.firebaseConnected) {
+          this.firestore.collection('users').doc(googleUser.email).set(googleUser, { merge: true }).catch(console.error);
+        }
+
         resolve(exists || googleUser);
       }
     });
@@ -186,6 +326,63 @@ class AuthSystem {
   // REST Email Registration
   registerWithEmail(name, email, password) {
     return new Promise(async (resolve, reject) => {
+      const lowercaseEmail = email.toLowerCase().trim();
+
+      if (this.firebaseConnected) {
+        try {
+          const userDoc = await this.firestore.collection('users').doc(lowercaseEmail).get();
+          if (userDoc.exists) {
+            reject("An account with this email address already exists (Firebase).");
+            return;
+          }
+
+          const newUser = {
+            email: lowercaseEmail,
+            password: password,
+            name: name,
+            bio: 'Eager learner looking forward to building privacy-preserving systems.',
+            streak: 1,
+            studyHours: 0,
+            completedTopics: 0,
+            completedLessons: 0,
+            skillsLearned: [],
+            joinedDate: 'July 2026',
+            achievements: [
+              { id: 'streak_5', name: 'Consistent Learner', desc: 'Maintain a 5-day study streak', icon: '🔥', unlocked: false },
+              { id: 'privacy_champion', name: 'Privacy Guard', desc: 'Run a Secure Aggregation local update cycle', icon: '🛡️', unlocked: false },
+              { id: 'course_finisher', name: 'Class Graduate', desc: 'Complete all topics in any course', icon: '🎓', unlocked: false }
+            ]
+          };
+
+          const defaultSettings = {
+            theme: 'dark',
+            notifications: true,
+            offlineMode: true,
+            federatedSync: true,
+            differentialPrivacy: true,
+            speechOutput: true,
+            language: 'en-US'
+          };
+
+          await this.firestore.collection('users').doc(lowercaseEmail).set(newUser);
+          await this.firestore.collection('settings').doc(lowercaseEmail).set(defaultSettings);
+
+          const users = JSON.parse(localStorage.getItem(this.usersDbKey)) || [];
+          if (!users.some(u => u.email === lowercaseEmail)) {
+            users.push(newUser);
+            localStorage.setItem(this.usersDbKey, JSON.stringify(users));
+          }
+
+          const sessionData = { email: newUser.email, name: newUser.name };
+          sessionStorage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+
+          resolve(newUser);
+          return;
+        } catch (err) {
+          console.warn("Firebase registration failed, falling back to REST/local:", err);
+        }
+      }
+
       try {
         const res = await fetch('/api/auth/register', {
           method: 'POST',
@@ -199,17 +396,39 @@ class AuthSystem {
         }
         const sessionData = { email: data.email, name: data.name };
         sessionStorage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+
+        if (this.firebaseConnected) {
+          const newUserObj = {
+            email: lowercaseEmail,
+            password: password,
+            name: name,
+            bio: 'Eager learner looking forward to building privacy-preserving systems.',
+            streak: 1,
+            studyHours: 0,
+            completedTopics: 0,
+            completedLessons: 0,
+            skillsLearned: [],
+            joinedDate: 'July 2026',
+            achievements: [
+              { id: 'streak_5', name: 'Consistent Learner', desc: 'Maintain a 5-day study streak', icon: '🔥', unlocked: false },
+              { id: 'privacy_champion', name: 'Privacy Guard', desc: 'Run a Secure Aggregation local update cycle', icon: '🛡️', unlocked: false },
+              { id: 'course_finisher', name: 'Class Graduate', desc: 'Complete all topics in any course', icon: '🎓', unlocked: false }
+            ]
+          };
+          this.firestore.collection('users').doc(lowercaseEmail).set(newUserObj, { merge: true }).catch(console.error);
+        }
+
         resolve(data);
       } catch (e) {
         console.warn("Network error during registration, fallback to local:", e);
         const users = JSON.parse(localStorage.getItem(this.usersDbKey)) || [];
-        const exists = users.find(u => u.email === email.toLowerCase().trim());
+        const exists = users.find(u => u.email === lowercaseEmail);
         if (exists) {
           reject("An account with this email address already exists (Offline).");
           return;
         }
         const newUser = {
-          email: email.toLowerCase().trim(),
+          email: lowercaseEmail,
           password: password,
           name: name,
           bio: 'Eager learner looking forward to building privacy-preserving systems.',
@@ -229,6 +448,11 @@ class AuthSystem {
         localStorage.setItem(this.usersDbKey, JSON.stringify(users));
         const sessionData = { email: newUser.email, name: newUser.name };
         sessionStorage.setItem(this.sessionUserKey, JSON.stringify(sessionData));
+
+        if (this.firebaseConnected) {
+          this.firestore.collection('users').doc(lowercaseEmail).set(newUser, { merge: true }).catch(console.error);
+        }
+
         resolve(newUser);
       }
     });
@@ -263,6 +487,11 @@ class AuthSystem {
     } catch (e) {
       console.warn("Failed to sync profile update to server:", e);
     }
+
+    if (this.firebaseConnected) {
+      this.firestore.collection('users').doc(email.toLowerCase().trim()).set(updatedFields, { merge: true }).catch(console.error);
+    }
+
     // Update local cache
     const users = JSON.parse(localStorage.getItem(this.usersDbKey)) || [];
     const index = users.findIndex(u => u.email === email);
@@ -287,6 +516,13 @@ class AuthSystem {
       });
       if (res.ok) {
         const data = await res.json();
+
+        if (this.firebaseConnected) {
+          this.firestore.collection('users').doc(email.toLowerCase().trim()).update({
+            achievements: data.achievements
+          }).catch(console.error);
+        }
+
         // Update local cache
         const users = JSON.parse(localStorage.getItem(this.usersDbKey)) || [];
         const userIndex = users.findIndex(u => u.email === email);
@@ -311,6 +547,13 @@ class AuthSystem {
         user.achievements[achIndex].unlocked = true;
         users[userIndex] = user;
         localStorage.setItem(this.usersDbKey, JSON.stringify(users));
+
+        if (this.firebaseConnected) {
+          this.firestore.collection('users').doc(email.toLowerCase().trim()).update({
+            achievements: user.achievements
+          }).catch(console.error);
+        }
+
         return { user, achievement: user.achievements[achIndex] };
       }
     }
@@ -340,6 +583,10 @@ class AuthSystem {
         });
       } catch (e) {
         console.warn("Failed to sync settings to server:", e);
+      }
+
+      if (this.firebaseConnected) {
+        this.firestore.collection('settings').doc(user.email.toLowerCase().trim()).set(updated, { merge: true }).catch(console.error);
       }
     }
     return updated;

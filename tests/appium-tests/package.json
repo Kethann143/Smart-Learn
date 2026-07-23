@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "E2E Appium test suite for Smart Learn Companion mobile application",
   "scripts": {
+    "pretest": "rm -rf node_modules/ts-node || rmdir /s /q node_modules\\ts-node || true",
     "test": "npx wdio run wdio.conf.js",
     "test:auth": "npx wdio run wdio.conf.js --spec tests/auth.spec.js",
     "test:home": "npx wdio run wdio.conf.js --spec tests/home.spec.js",

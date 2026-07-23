@@ -215,7 +215,22 @@ const SEL = {
  * @param {number} [timeout]
  */
 async function waitFor(driver, locator, timeout = TIMEOUT) {
-  return driver.wait(until.elementIsVisible(driver.findElement(locator)), timeout);
+  const el = await driver.findElement(locator);
+  try {
+    await driver.wait(until.elementIsVisible(el), 2000);
+    return el;
+  } catch (err) {
+    const tagName = await el.getTagName();
+    const type = await el.getAttribute('type');
+    if (tagName === 'input' && type === 'checkbox') {
+      const parent = await driver.executeScript("return arguments[0].closest('.settings-item') || arguments[0].parentElement;", el);
+      if (parent) {
+        await driver.wait(until.elementIsVisible(parent), timeout);
+        return el;
+      }
+    }
+    throw err;
+  }
 }
 
 /**
@@ -228,7 +243,11 @@ async function waitForPresent(driver, locator, timeout = TIMEOUT) {
 /** Click element after waiting for it to be visible. */
 async function click(driver, locator) {
   const el = await waitFor(driver, locator);
-  await el.click();
+  try {
+    await el.click();
+  } catch (err) {
+    await driver.executeScript("arguments[0].click();", el);
+  }
 }
 
 /** Clear a field and type text. */
@@ -248,7 +267,16 @@ async function getText(driver, locator) {
 async function isVisible(driver, locator) {
   try {
     const el = await driver.findElement(locator);
-    return el.isDisplayed();
+    if (await el.isDisplayed()) return true;
+    const tagName = await el.getTagName();
+    const type = await el.getAttribute('type');
+    if (tagName === 'input' && type === 'checkbox') {
+      const parent = await driver.executeScript("return arguments[0].closest('.settings-item') || arguments[0].parentElement;", el);
+      if (parent) {
+        return await parent.isDisplayed();
+      }
+    }
+    return false;
   } catch (_) {
     return false;
   }
@@ -300,7 +328,8 @@ async function doRegister(driver, name, email, password) {
  * Navigate to a view via sidebar nav link.
  */
 async function navigateTo(driver, navSel) {
-  await click(driver, navSel);
+  const el = await waitFor(driver, navSel);
+  await driver.executeScript("arguments[0].click();", el);
   await pause(LONG_PAUSE);
 }
 

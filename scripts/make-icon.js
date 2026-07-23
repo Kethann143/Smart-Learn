@@ -5,8 +5,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const src  = path.join(__dirname, 'assets', 'icon.png');
-const dest = path.join(__dirname, 'assets', 'icon.ico');
+const src  = path.join(__dirname, '..', 'frontend', 'assets', 'icon.png');
+const dest = path.join(__dirname, '..', 'frontend', 'assets', 'icon.ico');
 
 // Copy PNG as .ico — electron-builder accepts PNG named icon.ico on some versions
 // For full ICO format we use a minimal ICO header wrapper.

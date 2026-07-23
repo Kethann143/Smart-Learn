@@ -42,8 +42,8 @@ function startServer() {
     console.log('[Electron] App UserData Path:', userDataPath);
 
     // Spawn server.js as a child process using the Electron binary itself (with ELECTRON_RUN_AS_NODE=1)
-    serverProc = spawn(process.execPath, [path.join(__dirname, 'server.js')], {
-      cwd: __dirname,
+    serverProc = spawn(process.execPath, [path.join(__dirname, '..', '..', 'backend', 'server.js')], {
+      cwd: path.join(__dirname, '..', '..'),
       env: { 
         ...process.env, 
         ELECTRON_RUN: '1',

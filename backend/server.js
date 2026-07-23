@@ -31,7 +31,7 @@ function verifyPassword(password, storedPassword) {
 }
 
 // Initialize Database path and handle Electron writable path copy
-const dbDir = process.env.USER_DATA_PATH || __dirname;
+const dbDir = process.env.USER_DATA_PATH || path.join(__dirname, '..', 'database');
 const dbPath = path.join(dbDir, 'smart_learn.db');
 
 if (process.env.USER_DATA_PATH) {
@@ -40,7 +40,7 @@ if (process.env.USER_DATA_PATH) {
       fs.mkdirSync(dbDir, { recursive: true });
     }
     if (!fs.existsSync(dbPath)) {
-      const templatePath = path.join(__dirname, 'smart_learn.db');
+      const templatePath = path.join(__dirname, '..', 'database', 'smart_learn.db');
       if (fs.existsSync(templatePath)) {
         fs.copyFileSync(templatePath, dbPath);
         console.log('Copied template database to UserData directory:', dbPath);
@@ -524,7 +524,7 @@ app.post('/api/chat/clear', requireUser, (req, res) => {
 });
 
 // Serve frontend client files statically
-const publicDir = path.join(__dirname, 'www');
+const publicDir = path.join(__dirname, '..', 'www');
 app.use(express.static(publicDir));
 
 // Fallback index.html router

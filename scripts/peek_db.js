@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('smart_learn.db');
+const path = require('path');
+const db = new sqlite3.Database(path.join(__dirname, '..', 'database', 'smart_learn.db'));
 
 db.serialize(() => {
   db.all("SELECT name FROM sqlite_master WHERE type='table'", [], (err, tables) => {

@@ -39,7 +39,7 @@ jobs:
       - name: Run Load Test Orchestrator
         shell: pwsh
         run: |
-          cd load-testing
+          cd tests/load-testing
           ./run.ps1
 
       - name: Upload Load Test Reports
@@ -49,5 +49,5 @@ jobs:
           name: load-test-reports
           path: |
             SmartLearn_LoadTest_Report.xlsx
-            load-testing/load_test_results.json
+            tests/load-testing/load_test_results.json
           retention-days: 90

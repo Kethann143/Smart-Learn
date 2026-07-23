@@ -38,17 +38,21 @@ jobs:
         with:
           enablement: true
 
-      # In a real build step we might compile or build. For this client-first app,
-      # we deploy the root folder as it is. Let's make sure the essential assets exist.
+      # Compile the client-first web app into www/ for Pages deployment
+      - name: Build Web Application
+        run: |
+          npm install
+          node scripts/build-mobile.js
+
       - name: Verify static files
         run: |
-          ls -la index.html styles.css app.js auth.js ai.js db.js federated.js
+          ls -la www/index.html www/styles.css www/app.js www/auth.js www/ai.js www/db.js www/federated.js
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the root directory containing index.html and scripts
-          path: '.'
+          # Upload the compiled www directory containing index.html and scripts
+          path: 'www'
 
       - name: Deploy to GitHub Pages
         id: deployment
@@ -92,12 +96,12 @@ jobs:
 
       - name: Install Selenium dependencies
         run: |
-          cd selenium-tests
+          cd tests/selenium-tests
           npm install
 
       - name: Run Selenium Tests (Headless)
         run: |
-          cd selenium-tests
+          cd tests/selenium-tests
           mkdir -p "Test Results/Logs"
           # Set BASE_URL and run mocha with mochawesome reporter
           BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
@@ -110,7 +114,7 @@ jobs:
 
       - name: Generate Reports and Metrics
         run: |
-          cd selenium-tests
+          cd tests/selenium-tests
           BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
           python generate_final_reports.py
 
@@ -120,13 +124,13 @@ jobs:
         with:
           name: selenium-e2e-test-results
           path: |
-            selenium-tests/Test Results/Excel/Automation_Test_Report.xlsx
-            selenium-tests/Test Results/HTML/execution-report.html
-            selenium-tests/Test Results/Screenshots/
-            selenium-tests/Test Results/Logs/
-            selenium-tests/Test Results/Summary/summary.md
+            tests/selenium-tests/Test Results/Excel/Automation_Test_Report.xlsx
+            tests/selenium-tests/Test Results/HTML/execution-report.html
+            tests/selenium-tests/Test Results/Screenshots/
+            tests/selenium-tests/Test Results/Logs/
+            tests/selenium-tests/Test Results/Summary/summary.md
           retention-days: 90
 
       - name: Publish Summary to GITHUB_STEP_SUMMARY
         run: |
-          cat "selenium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY
+          cat "tests/selenium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY

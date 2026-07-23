@@ -8,11 +8,11 @@ $ErrorActionPreference = "Stop"
 
 # Ensure clean directory context
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location -Path "$ScriptDir\.."
+Set-Location -Path "$ScriptDir\..\.."
 
 Write-Host "STARTING: [1/5] Starting Express Backend Server..." -ForegroundColor Green
 # Start express server in the background and track process
-$ServerProcess = Start-Process -FilePath "node" -ArgumentList "server.js" -PassThru -NoNewWindow
+$ServerProcess = Start-Process -FilePath "node" -ArgumentList "backend/server.js" -PassThru -NoNewWindow
 
 # Wait for database connection and server initialization
 Write-Host "WAITING: Waiting 3 seconds for database initialization..." -ForegroundColor Cyan

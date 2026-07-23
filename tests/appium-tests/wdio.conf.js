@@ -8,6 +8,9 @@ const path = require('path');
 
 exports.config = {
   runner: 'local',
+  autoCompileOpts: {
+    autoCompile: false
+  },
   specs: ['./tests/**/*.spec.js'],
   exclude: [],
   maxInstances: 1,
