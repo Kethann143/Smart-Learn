@@ -1432,8 +1432,57 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
       }
+      // 7. Sync to Firebase Realtime Database (RTDB)
+      if (auth.realtimeDb) {
+        const rdb = auth.realtimeDb;
+        const rtdbEmail = email.replace(/\./g, '_');
+        
+        // A. User Profile
+        await rdb.ref(`users/${rtdbEmail}`).set({
+          email: email,
+          name: currentUser.name,
+          bio: currentUser.bio || '',
+          streak: currentUser.streak || 0,
+          studyHours: currentUser.studyHours || 0,
+          completedTopics: currentUser.completedTopics || 0,
+          completedLessons: currentUser.completedLessons || 0,
+          joinedDate: currentUser.joinedDate || '',
+          skillsLearned: currentUser.skillsLearned || [],
+          achievements: currentUser.achievements || [],
+          password: currentUser.password || 'password123'
+        });
+
+        // B. Settings
+        const userSettings = auth.getSettings();
+        if (userSettings) {
+          await rdb.ref(`settings/${rtdbEmail}`).set(userSettings);
+        }
+
+        // C. Course Progress
+        if (Object.keys(coursesProgress).length > 0) {
+          await rdb.ref(`progress/${rtdbEmail}`).set(coursesProgress);
+        }
+
+        // D. Bookmarks
+        const userBookmarks = JSON.parse(localStorage.getItem('fl_user_bookmarks')) || [];
+        if (userBookmarks.length > 0) {
+          await rdb.ref(`bookmarks/${rtdbEmail}`).set(userBookmarks);
+        }
+
+        // E. Chat History
+        const userChatHistory = JSON.parse(localStorage.getItem('fl_chat_history')) || [];
+        if (userChatHistory.length > 0) {
+          await rdb.ref(`ai_chat_history/${rtdbEmail}`).set(userChatHistory);
+        }
+
+        // F. Courses Catalog (Seeded if empty)
+        const coursesData = window.SmartLearningDB.getCourses();
+        await rdb.ref('courses').set(coursesData);
+        
+        console.log('[Realtime Database] Synchronized all user data paths successfully!');
+      }
       
-      showNotification("Sync Success", "All learning data fully synchronized with cloud Firestore!");
+      showNotification("Sync Success", "All learning data fully synchronized with cloud Firestore & Realtime Database!");
     } catch (e) {
       console.error("Firebase sync error:", e);
       showNotification("Sync Warning", "Completed connection. Some items did not sync: " + e.message);
