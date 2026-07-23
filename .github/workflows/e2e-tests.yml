@@ -1,4 +1,4 @@
-name: Deploy and Live E2E Testing
+name: Unified E2E Testing Suite
 
 on:
   push:
@@ -7,63 +7,91 @@ on:
     branches: [ "main", "master", "develop" ]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  contents: write
 
 jobs:
   # ═══════════════════════════════════════════════════════════════════════════
-  # JOB 1: Deploy to GitHub Pages
+  # JOB 1: Android Appium Mobile E2E Testing
   # ═══════════════════════════════════════════════════════════════════════════
-  deploy:
-    name: "Deploy Frontend to GitHub Pages"
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  appium-tests:
+    name: "Run Mobile Appium E2E Tests"
+    runs-on: macos-15-intel
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          enablement: true
+          node-version: '22'
 
-      # Compile the client-first web app into www/ for Pages deployment
+      - name: Setup Java (JDK 21)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Build Web Application
         run: |
           npm install
           node scripts/build-mobile.js
 
-      - name: Verify static files
+      - name: Build Capacitor Android App
         run: |
-          ls -la www/index.html www/styles.css www/app.js www/auth.js www/ai.js www/db.js www/federated.js
+          npx cap sync android
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Compile Android APK (Debug)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          # Upload the compiled www directory containing index.html and scripts
-          path: 'www'
+          python-version: '3.11'
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Install Python Excel dependencies
+        run: |
+          pip install openpyxl
+
+      - name: Install Appium testing packages
+        run: |
+          cd tests/appium-tests
+          npm install
+
+      - name: Run Appium Tests on Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          script: |
+            chmod +x tests/appium-tests/run-tests.sh
+            cd tests/appium-tests && ./run-tests.sh
+
+      - name: Generate Automation Reports
+        run: |
+          cd tests/appium-tests
+          npm run report
+
+      - name: Upload Appium Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: appium-test-results
+          path: tests/appium-tests/Test Results/
+          retention-days: 90
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # JOB 2: Live Selenium E2E Testing
+  # JOB 2: Web Selenium E2E Testing
   # ═══════════════════════════════════════════════════════════════════════════
-  test:
-    name: "Run E2E Tests on Live Deployed Site"
-    needs: deploy
+  selenium-tests:
+    name: "Run Web Selenium E2E Tests"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -79,32 +107,24 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Wait for GitHub Pages URL to return 200 (live)
-      - name: Verify Deployment is Live
+      - name: Install dependencies
         run: |
-          URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
-          echo "Checking deployment URL: $URL"
-          for i in {1..30}; do
-            HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$URL" || echo "000")
-            if [ "$HTTP_STATUS" = "200" ]; then
-              echo "✅ Deployment is live!"
-              break
-            fi
-            echo "⏳ Waiting for deployment to go live (HTTP: $HTTP_STATUS)... Attempt $i/30"
-            sleep 10
-          done
-
-      - name: Install Selenium dependencies
-        run: |
+          npm install
+          node scripts/build-mobile.js
           cd tests/selenium-tests
           npm install
+
+      - name: Start Express Server
+        run: |
+          node backend/server.js &
+          echo "Waiting for server to initialize..."
+          sleep 5
 
       - name: Run Selenium Tests (Headless)
         run: |
           cd tests/selenium-tests
           mkdir -p "Test Results/Logs"
-          # Set BASE_URL and run mocha with mochawesome reporter
-          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
+          BASE_URL="http://localhost:8080" \
           HEADLESS=true \
           npx mocha tests/login.test.js --reporter mochawesome --timeout 60000 --exit 2>&1 | tee "Test Results/Logs/execution.log" || true
 
@@ -115,14 +135,14 @@ jobs:
       - name: Generate Reports and Metrics
         run: |
           cd tests/selenium-tests
-          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
+          BASE_URL="http://localhost:8080" \
           python generate_final_reports.py
 
-      - name: Upload Test Artifacts
+      - name: Upload Selenium Artifacts
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: selenium-e2e-test-results
+          name: selenium-test-results
           path: |
             tests/selenium-tests/Test Results/Excel/Automation_Test_Report.xlsx
             tests/selenium-tests/Test Results/HTML/execution-report.html
@@ -130,7 +150,3 @@ jobs:
             tests/selenium-tests/Test Results/Logs/
             tests/selenium-tests/Test Results/Summary/summary.md
           retention-days: 90
-
-      - name: Publish Summary to GITHUB_STEP_SUMMARY
-        run: |
-          cat "tests/selenium-tests/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY
