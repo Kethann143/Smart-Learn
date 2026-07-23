@@ -20,8 +20,7 @@ exports.config = {
   // ==================================
   capabilities: [{
     platformName: 'Android',
-    'appium:deviceName': 'realme RMX3785',     // Change to your device name
-    'appium:udid': 'GAW4QOONKZ95KVQ4',          // Change to your device UDID
+    'appium:deviceName': 'Android Device',
     'appium:automationName': 'UiAutomator2',
     'appium:appPackage': 'com.smartlearn.companion',
     'appium:appActivity': 'com.smartlearn.companion.MainActivity',
