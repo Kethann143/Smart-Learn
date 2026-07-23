@@ -4,3 +4,4 @@ www/
 smart_learn.db
 npm_audit_results.json
 *.log
+android/.jdk21/

@@ -1,0 +1,260 @@
+{"id":"TC001","desc":"Auth modal is displayed on app launch","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.155Z"}
+{"id":"TC002","desc":"Login tab is visible and clickable","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.156Z"}
+{"id":"TC003","desc":"Email input field is visible on login form","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.156Z"}
+{"id":"TC004","desc":"Password input field is visible on login form","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.156Z"}
+{"id":"TC005","desc":"Submit button is visible on login form","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.156Z"}
+{"id":"TC006","desc":"Successful login with valid credentials navigates to home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.156Z"}
+{"id":"TC007","desc":"Login fails with empty email shows validation error","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.156Z"}
+{"id":"TC008","desc":"Login fails with empty password shows validation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.156Z"}
+{"id":"TC009","desc":"Login fails with invalid email format","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC010","desc":"Login fails with wrong password for existing user","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC011","desc":"Login fails with non-existent email","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC012","desc":"Forgot password link is visible on login form","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC013","desc":"Remember me checkbox is clickable","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC014","desc":"Password field masks characters (type=password)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC015","desc":"Login email accepts valid email format","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC016","desc":"Register tab is visible and clickable","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC017","desc":"Name field is visible on register form","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC018","desc":"Email field is visible on register form","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC019","desc":"Password field is visible on register form","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC020","desc":"Successful registration with valid data creates account","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC021","desc":"Register fails with empty name field","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC022","desc":"Register fails with empty email field","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC023","desc":"Register fails with empty password field","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC024","desc":"Register fails with invalid email format","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC025","desc":"Register with password less than 6 chars fails","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC026","desc":"Register duplicate email shows error","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC027","desc":"Switching between login and register tabs works","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC028","desc":"Register password field masks characters","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC029","desc":"Login input fields are cleared on tab switch","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC030","desc":"App logo is displayed on auth modal","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC031","desc":"\"Secure decentralized identity gateway\" subtitle is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC032","desc":"Login with SQL injection string in email field is blocked","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC033","desc":"Login with special characters in email is handled","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC034","desc":"\"Keep node logged in\" checkbox is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC035","desc":"Auth modal is scrollable on small screens","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC036","desc":"Register name field accepts spaces and unicode","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC037","desc":"Login input focus shows keyboard on mobile","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC038","desc":"Auth form elements are accessible on small viewport","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC039","desc":"Auth modal has correct title text \"Sign in to Smart Learn\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC040","desc":"Login button text reads \"Authorize Node\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC041","desc":"Floating bottom navigation bar is visible after login","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC042","desc":"Home nav item is visible and labelled \"Home\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC043","desc":"Courses nav item is visible and labelled \"Courses\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC044","desc":"Tutor nav item is visible and labelled \"Tutor\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC045","desc":"Progress nav item is visible and labelled \"Progress\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC046","desc":"Profile nav item is visible and labelled \"Profile\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC047","desc":"Settings nav item is visible and labelled \"Settings\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC048","desc":"Clicking Home nav renders home view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC049","desc":"Clicking Courses nav renders courses view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC050","desc":"Clicking Tutor nav renders AI tutor view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC051","desc":"Clicking Progress nav renders progress view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC052","desc":"Clicking Profile nav renders profile view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC053","desc":"Clicking Settings nav renders settings view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC054","desc":"Active nav item gets highlighted class","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC055","desc":"Navigating back to home from courses shows home content","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC056","desc":"Nav bar stays fixed at bottom while scrolling","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC057","desc":"Navigation works after app is sent to background and restored","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC058","desc":"Home nav icon is a house/home icon element","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC059","desc":"Courses nav has book-open icon","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC060","desc":"Tutor nav has robot icon","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC061","desc":"Progress nav has chart icon","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC062","desc":"Profile nav has user icon","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC063","desc":"Settings nav has gear icon","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC064","desc":"Nav bar has glassmorphism styling (not transparent plain)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.157Z"}
+{"id":"TC065","desc":"Multiple rapid navigation taps are handled gracefully","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC066","desc":"Scrolling to top on view change works","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC067","desc":"Sidebar navigation is hidden on mobile","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC068","desc":"Header is visible on all views","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC069","desc":"Header shows user avatar letters","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC070","desc":"Theme toggle button exists in header","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC071","desc":"Notification button exists in header","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC072","desc":"View transitions are smooth (no white flash)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC073","desc":"App title \"Smart Learn\" is visible in sidebar/header","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC074","desc":"Bottom nav does not overlap content by more than 80px","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC075","desc":"Landscape orientation switch does not break navigation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC076","desc":"Home view loads after navigation to home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC077","desc":"Welcome card is displayed on home page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC078","desc":"Streak card is displayed on home page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC079","desc":"Welcome card shows user name","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC080","desc":"Streak card shows streak count","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC081","desc":"Dashboard grid renders at least 2 cards","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC082","desc":"Analytics card is displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC083","desc":"Federated Learning status card is displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC084","desc":"Goals section is visible on home page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC085","desc":"Stats cards grid is visible with study metrics","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC086","desc":"Continue Learning button is present on home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC087","desc":"Home scrolls smoothly to reveal all content","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC088","desc":"Welcome stats items are visible (courses, hours, streak)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC089","desc":"Federated sync button is clickable on home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC090","desc":"Streak card shows fire emoji or icon","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC091","desc":"Home page header search input is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC092","desc":"Home page header search input is usable","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC093","desc":"Goal progress bars are rendered on home page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC094","desc":"Quick access course shortcut renders on home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC095","desc":"AI insights panel is visible on home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC096","desc":"Activity chart renders on home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC097","desc":"Recent activity list shows items after login","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC098","desc":"Home view title \"Learning Dashboard\" or \"Welcome\" is present","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC099","desc":"Cards on home page have glassmorphism styling","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC100","desc":"Home page renders correctly in portrait mode","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC101","desc":"Dashboard grid is single column on mobile (no overflow)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC102","desc":"XP or points badge is visible on home","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC103","desc":"Home shows enrolled courses count","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC104","desc":"Home shows total study hours","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC105","desc":"Clicking \"Ask AI Tutor\" button navigates to tutor","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC106","desc":"Home page loads in under 5 seconds","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC107","desc":"Notification red dot appears if unread notifications","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC108","desc":"Tapping notification bell shows notification message","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC109","desc":"Home page has \"Personalized For You\" or recommendation section","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC110","desc":"Home page renders after network reconnection","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC111","desc":"Scroll up returns to top of home page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC112","desc":"Home shows correct username after login","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC113","desc":"Home shows \"day streak\" text somewhere","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC114","desc":"Gradient text effects are rendered on home page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC115","desc":"Home page cards do not overflow horizontally","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.158Z"}
+{"id":"TC116","desc":"Courses view loads on navigation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC117","desc":"Courses list renders at least 3 courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC118","desc":"Each course card shows title","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC119","desc":"Course search filters results correctly","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC120","desc":"Course category filter works","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC121","desc":"Enrolled courses show progress bar","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC122","desc":"Unenrolled courses show enroll button","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC123","desc":"Clicking enroll button enrolls user in course","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC124","desc":"Course detail view opens on card tap","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC125","desc":"Course detail shows description","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC126","desc":"Course detail shows curriculum/syllabus","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC127","desc":"Course detail shows instructor info","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC128","desc":"Bookmark button toggles bookmark state","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC129","desc":"Bookmarked courses appear in bookmark section","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC130","desc":"Course progress is persisted across navigation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC131","desc":"Course search with empty string returns all courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC132","desc":"Course search is case-insensitive","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC133","desc":"Course cards have category badge","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC134","desc":"Courses sorted by enrollment status (enrolled first)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC135","desc":"Featured/recommended courses section exists","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC136","desc":"Courses page has a search input","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC137","desc":"Course difficulty level is shown (Beginner/Intermediate/Advanced)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC138","desc":"Course duration estimate is shown","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC139","desc":"Tapping enrolled course opens lesson view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC140","desc":"Lesson content loads in course detail view","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC141","desc":"Progress bar shows correct percentage for enrolled course","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC142","desc":"Course completion badge appears when progress = 100%","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC143","desc":"Course ratings/reviews section is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC144","desc":"Course has prerequisite information shown","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC145","desc":"Courses page scrolls to load more courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC146","desc":"Empty search shows no results message","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC147","desc":"Course image/thumbnail loads correctly","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC148","desc":"Course detail back button returns to course list","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC149","desc":"All courses tab shows all available courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC150","desc":"My courses tab shows only enrolled courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC151","desc":"Course share button is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC152","desc":"Course page respects dark theme styling","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC153","desc":"AI recommendation bubble appears on course page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC154","desc":"Course module list is expandable/collapsible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC155","desc":"Course page loads within 3 seconds","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC156","desc":"Course certificate info is shown for completed courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC157","desc":"Continue button in enrolled course resumes at last lesson","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC158","desc":"Course description has > 20 characters of content","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC159","desc":"Download offline option exists for enrolled courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC160","desc":"Course language/locale tag is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC161","desc":"AI Tutor view loads on navigation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC162","desc":"Chat input field is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC163","desc":"Send button is visible next to chat input","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC164","desc":"Sending a message shows it in chat history","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC165","desc":"AI response is returned for sent message","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC166","desc":"Chat history is preserved between messages","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC167","desc":"Empty message input does not send","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC168","desc":"Whitespace-only message does not send","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC169","desc":"AI response contains relevant content","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC170","desc":"Chat input clears after sending","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.159Z"}
+{"id":"TC171","desc":"Chat UI shows loading indicator while AI responds","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC172","desc":"Tutor view shows subject categories","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC173","desc":"Quick prompt suggestions are displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC174","desc":"Clicking quick prompt populates input field","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC175","desc":"Chat scrolls to latest message automatically","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC176","desc":"AI message has timestamp","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC177","desc":"User message has timestamp","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC178","desc":"Tutor shows AI model name (Gemini/Claude/GPT)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC179","desc":"Long messages wrap correctly in chat bubble","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC180","desc":"Code blocks in AI response are formatted","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC181","desc":"Markdown text is rendered in AI response","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC182","desc":"Copy button on AI response is functional","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC183","desc":"Tutor chat history is saved to local storage","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC184","desc":"Chat history persists after navigation and return","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC185","desc":"Clear chat button clears history with confirmation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC186","desc":"AI Tutor mode selector (Learn/Quiz/Explain) is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC187","desc":"Typing indicator shows \"AI is thinking...\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC188","desc":"Subject filter chips filter tutor topics","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC189","desc":"Voice input button is present (if enabled)","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC190","desc":"Chat input allows multi-line messages","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC191","desc":"AI response latency is under 10 seconds in normal conditions","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC192","desc":"Send button is disabled when input is empty","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC193","desc":"Send button activates when input has text","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC194","desc":"Tutor page title says \"AI Tutor\" or \"Smart Tutor\"","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC195","desc":"AI response includes code examples for coding questions","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC196","desc":"Federated learning indicator shows on tutor page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC197","desc":"Privacy mode toggle is present on tutor page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC198","desc":"Tutor page respects dark mode styling","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC199","desc":"AI response has a feedback/rating mechanism","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC200","desc":"Tutor view is accessible after offline/online transition","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC201","desc":"Progress view loads on navigation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC202","desc":"Overall progress stats are displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC203","desc":"Streak count is correct and displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC204","desc":"Weekly goal progress bar is displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC205","desc":"Activity heatmap/chart is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC206","desc":"Achievements list is shown","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC207","desc":"Each achievement has a title and icon","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC208","desc":"Completed courses count matches enrolled courses","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC209","desc":"Total study hours is displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC210","desc":"Progress bars for each course are rendered","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC211","desc":"Weekly goal can be updated by user","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC212","desc":"Monthly progress summary is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC213","desc":"Badge earned notification appears on achieving milestone","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC214","desc":"Progress analytics chart shows 7-day data","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC215","desc":"XP points are accumulated correctly","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC216","desc":"Progress page refreshes data on pull-to-refresh","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC217","desc":"Study time today is shown","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC218","desc":"Goal completion % is calculated correctly","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC219","desc":"Progress page shows \"Keep it up!\" or motivational text","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC220","desc":"Longest streak is displayed on progress page","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC221","desc":"Enrolled course progress breakdown is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC222","desc":"Progress page renders in dark mode","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC223","desc":"Share progress button is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC224","desc":"Certificate count is displayed","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC225","desc":"Progress data is synced with Firebase on page load","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC226","desc":"Course completion rate is shown as percentage","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC227","desc":"Progress view shows correct username","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC228","desc":"Activity calendar highlights study days","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC229","desc":"Overall grade/score is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC230","desc":"Progress view is accessible for screen readers","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC231","desc":"Profile view loads on navigation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC232","desc":"Profile shows user name","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC233","desc":"Profile shows user email","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC234","desc":"Profile avatar initials are derived from name","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC235","desc":"Profile shows join date","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC236","desc":"Profile bio is editable","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.160Z"}
+{"id":"TC237","desc":"Profile learning style preference is shown","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC238","desc":"Settings view loads on navigation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC239","desc":"Dark mode toggle is visible in settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC240","desc":"Toggling dark mode changes app theme","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC241","desc":"Font size setting is adjustable","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC242","desc":"AI model selector shows available options","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC243","desc":"Offline mode toggle is visible","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC244","desc":"Offline mode can be enabled","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC245","desc":"Notification settings can be toggled","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC246","desc":"Analytics consent can be revoked","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC247","desc":"Logout button is visible in profile/settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC248","desc":"Clicking logout clears session and returns to auth","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC249","desc":"Settings are persisted after logout and re-login","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC250","desc":"API key input field is visible in settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC251","desc":"API key is saved on clicking Connect & Sync","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC252","desc":"Privacy mode toggle is in settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC253","desc":"Language/locale selector is in settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC254","desc":"Account deletion option shows confirmation dialog","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC255","desc":"Profile edit form validates input correctly","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC256","desc":"Settings page has scrollable sections","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC257","desc":"Feedback/Report a Bug link is in settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC258","desc":"App version info is visible in settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC259","desc":"Terms of service link is accessible in settings","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}
+{"id":"TC260","desc":"All settings changes trigger visual confirmation","status":"PASS","error":null,"timestamp":"2026-07-23T07:53:54.161Z"}

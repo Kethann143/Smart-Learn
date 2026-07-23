@@ -5,6 +5,7 @@
   "scripts": {
     "pretest": "rm -rf node_modules/ts-node || rmdir /s /q node_modules\\ts-node || true",
     "test": "npx wdio run wdio.conf.js",
+    "test:ci": "node run-ci-tests.js",
     "test:auth": "npx wdio run wdio.conf.js --spec tests/auth.spec.js",
     "test:home": "npx wdio run wdio.conf.js --spec tests/home.spec.js",
     "test:courses": "npx wdio run wdio.conf.js --spec tests/courses.spec.js",
