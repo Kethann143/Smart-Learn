@@ -44,7 +44,21 @@ class AuthSystem {
       this.firebaseConnected = true;
       // Persist config so connectFirebase() helper still works
       localStorage.setItem(this.firebaseConfigKey, JSON.stringify(this.FIREBASE_CONFIG));
-      console.log('[Firebase] Connected to project:', this.FIREBASE_CONFIG.projectId);
+      console.log('[Firebase RTDB Live] Connected to:', this.FIREBASE_CONFIG.databaseURL);
+
+      // Listen for Live Connection State
+      this.realtimeDb.ref('.info/connected').on('value', (snap) => {
+        const isConnected = snap.val() === true;
+        console.log(`[Firebase RTDB Live] Network status: ${isConnected ? '🟢 LIVE CONNECTED' : '🔴 OFFLINE'}`);
+      });
+
+      // Attach Live Sync Listeners for Users and Settings
+      this.realtimeDb.ref('settings').on('value', (snapshot) => {
+        const liveSettings = snapshot.val();
+        if (liveSettings) {
+          console.log('[Firebase RTDB Live] Live settings update received:', Object.keys(liveSettings).length, 'entries');
+        }
+      });
     } catch (e) {
       console.error('[Firebase] Init error:', e);
       this.firebaseConnected = false;
