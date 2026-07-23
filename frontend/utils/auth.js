@@ -24,9 +24,11 @@ class AuthSystem {
         if (config && config.projectId && config.apiKey) {
           if (typeof firebase !== 'undefined') {
             if (!firebase.apps.length) {
+              config.databaseURL = config.databaseURL || `https://${config.projectId}-default-rtdb.firebaseio.com`;
               firebase.initializeApp(config);
             }
             this.firestore = firebase.firestore();
+            this.realtimeDb = firebase.database();
             this.firebaseConnected = true;
             console.log('[Firebase] Initialized successfully with project:', config.projectId);
           } else {
@@ -54,12 +56,15 @@ class AuthSystem {
           await firebase.app().delete();
         }
         
+        config.databaseURL = config.databaseURL || `https://${config.projectId}-default-rtdb.firebaseio.com`;
         firebase.initializeApp(config);
         const firestore = firebase.firestore();
+        const realtimeDb = firebase.database();
         
         firestore.collection('connections_test').doc('ping').get()
           .then(() => {
             this.firestore = firestore;
+            this.realtimeDb = realtimeDb;
             this.firebaseConnected = true;
             localStorage.setItem(this.firebaseConfigKey, JSON.stringify(config));
             resolve(config);
@@ -67,6 +72,7 @@ class AuthSystem {
           .catch(err => {
             if (err.code === 'permission-denied' || err.message.toLowerCase().includes('permission')) {
               this.firestore = firestore;
+              this.realtimeDb = realtimeDb;
               this.firebaseConnected = true;
               localStorage.setItem(this.firebaseConfigKey, JSON.stringify(config));
               resolve(config);
