@@ -119,11 +119,17 @@ async function navigateTo(view) {
 }
 
 async function scrollDown(amount = 500) {
-  await browser.touchAction([
-    { action: 'press', x: 540, y: 1200 },
-    { action: 'moveTo', x: 540, y: 1200 - amount },
-    'release'
-  ]);
+  const startX = 540;
+  const startY = 1200;
+  const endY = startY - amount;
+  await browser.action('pointer', {
+    parameters: { pointerType: 'touch' }
+  })
+    .move({ x: startX, y: startY })
+    .down()
+    .move({ x: startX, y: endY, duration: 300 })
+    .up()
+    .perform();
 }
 
 module.exports = {

@@ -9,7 +9,7 @@ const { SELECTORS, tapElement, typeText, isDisplayed, login, register } = requir
 describe('AUTH - Login & Registration', () => {
 
   beforeEach(async () => {
-    await browser.reset();
+    await browser.reloadSession();
     await browser.pause(2000);
   });
 
