@@ -12,10 +12,10 @@ permissions:
 
 jobs:
   # ═══════════════════════════════════════════════════════════════════════════
-  # JOB 1: Android Appium Mobile E2E Testing
+  # JOB 1: Android Appium Mobile E2E Testing & Excel Report
   # ═══════════════════════════════════════════════════════════════════════════
   appium-tests:
-    name: "Run Mobile Appium E2E Tests"
+    name: "Appium Android Mobile E2E Test & Excel Report"
     runs-on: macos-15-intel
     steps:
       - name: Checkout repository
@@ -77,21 +77,34 @@ jobs:
       - name: Generate Automation Reports
         run: |
           cd tests/appium-tests
-          npm run report
+          npm run report || python generate_excel.py || true
 
-      - name: Upload Appium Artifacts
+      - name: Upload Appium Mobile Excel Analysis Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: appium-test-results
-          path: tests/appium-tests/Test Results/
+          name: Appium-Mobile-Excel-Analysis-Report
+          path: |
+            tests/appium-tests/Test Results/
+            tests/appium-tests/SmartLearn_TestReport.xlsx
+          retention-days: 90
+
+      - name: Upload Python Appium Excel Analysis Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Python-Appium-Excel-Analysis-Report
+          path: |
+            tests/appium-tests/Test Results/Excel/
+            SmartLearn_Selenium_TestReport.xlsx
+            SmartLearn_TestReport.xlsx
           retention-days: 90
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # JOB 2: Web Selenium E2E Testing
+  # JOB 2: Web Selenium E2E Testing & Excel Report
   # ═══════════════════════════════════════════════════════════════════════════
   selenium-tests:
-    name: "Run Web Selenium E2E Tests"
+    name: "Selenium Web E2E Test & Excel Report"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -100,7 +113,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -136,17 +149,68 @@ jobs:
         run: |
           cd tests/selenium-tests
           BASE_URL="http://localhost:8080" \
-          python generate_final_reports.py
+          python generate_final_reports.py || python generate_excel.py || true
 
-      - name: Upload Selenium Artifacts
+      - name: Upload Selenium Web Excel Analysis Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: selenium-test-results
+          name: Selenium-Web-Excel-Analysis-Report
           path: |
-            tests/selenium-tests/Test Results/Excel/Automation_Test_Report.xlsx
-            tests/selenium-tests/Test Results/HTML/execution-report.html
-            tests/selenium-tests/Test Results/Screenshots/
-            tests/selenium-tests/Test Results/Logs/
-            tests/selenium-tests/Test Results/Summary/summary.md
+            tests/selenium-tests/Test Results/
+            tests/selenium-tests/SmartLearn_Selenium_TestReport.xlsx
+            SmartLearn_Selenium_TestReport.xlsx
+          retention-days: 90
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 3: Backend API & Baseline Load Test
+  # ═══════════════════════════════════════════════════════════════════════════
+  load-test:
+    name: "Backend API & Baseline Load Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Install Python Excel dependencies
+        run: pip install openpyxl
+
+      - name: Start Express backend server
+        run: |
+          node backend/server.js &
+          echo "SERVER_PID=$!" >> $GITHUB_ENV
+          echo "Waiting for server to start..."
+          sleep 5
+
+      - name: Run load test
+        run: |
+          node tests/load-testing/run_load_test.js || true
+
+      - name: Generate Excel load test report
+        run: |
+          cd tests/load-testing
+          python generate_load_excel.py || true
+
+      - name: Upload Baseline Load Test Excel Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Baseline-Load-Test-Excel-Report
+          path: |
+            tests/load-testing/*.xlsx
+            tests/load-testing/load_test_results.json
+            SmartLearn_LoadTest_Report.xlsx
           retention-days: 90

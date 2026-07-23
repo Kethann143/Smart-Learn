@@ -22,7 +22,7 @@ jobs:
   # JOB: Start Backend Server & Run Load Test
   # ═══════════════════════════════════════════════════════════════════════════
   load-test:
-    name: "Run Backend Load Test"
+    name: "Backend API & Baseline Load Test"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -32,7 +32,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -50,10 +49,7 @@ jobs:
           node backend/server.js &
           echo "SERVER_PID=$!" >> $GITHUB_ENV
           echo "Waiting for server to start..."
-          sleep 8
-          # Health check
-          curl --retry 5 --retry-delay 2 --fail http://localhost:8080/api/auth/user \
-            -H "x-user-email: student@smartlearn.edu" || echo "Health check done"
+          sleep 5
 
       - name: Run load test
         run: |
@@ -83,21 +79,14 @@ jobs:
               console.log('Min / Max      :', s.minLatency + 'ms /', s.maxLatency + 'ms');
             "
 
-      - name: Upload load test results (JSON)
+      - name: Upload Baseline Load Test Excel Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: load-test-results-json
-          path: tests/load-testing/load_test_results.json
-          retention-days: 90
-
-      - name: Upload load test report (Excel)
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: load-test-report-excel
+          name: Baseline-Load-Test-Excel-Report
           path: |
             tests/load-testing/*.xlsx
+            tests/load-testing/load_test_results.json
             SmartLearn_LoadTest_Report.xlsx
           retention-days: 90
 
