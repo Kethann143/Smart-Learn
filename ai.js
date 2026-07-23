@@ -45,6 +45,43 @@ class AITutor {
   async syncChatFromServer(courseId = null) {
     const user = window.AuthSystem.getCurrentUser();
     if (!user) return;
+
+    if (window.AuthSystem.firebaseConnected) {
+      try {
+        let query = window.AuthSystem.firestore.collection('ai_chat_history')
+          .where('email', '==', user.email);
+        if (courseId) {
+          query = query.where('courseId', '==', courseId);
+        }
+        
+        const querySnapshot = await query.get();
+        const firebaseHistory = [];
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          firebaseHistory.push({
+            timestamp: data.timestamp,
+            sender: data.sender,
+            text: data.text,
+            courseId: data.courseId,
+            topicName: data.topicName
+          });
+        });
+        
+        let localHistory = JSON.parse(localStorage.getItem(this.chatHistoryKey)) || [];
+        if (courseId) {
+          localHistory = localHistory.filter(c => c.courseId !== courseId);
+          localHistory.push(...firebaseHistory);
+        } else {
+          localHistory = firebaseHistory;
+        }
+        localHistory.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        if (localHistory.length > 200) localHistory.splice(0, localHistory.length - 200);
+        localStorage.setItem(this.chatHistoryKey, JSON.stringify(localHistory));
+      } catch (err) {
+        console.warn("Failed to sync chat history from Firebase:", err);
+      }
+    }
+
     try {
       const url = courseId ? `/api/chat?courseId=${courseId}` : '/api/chat';
       const res = await fetch(url, {
@@ -55,7 +92,11 @@ class AITutor {
         let localHistory = JSON.parse(localStorage.getItem(this.chatHistoryKey)) || [];
         if (courseId) {
           localHistory = localHistory.filter(c => c.courseId !== courseId);
-          localHistory.push(...serverHistory);
+          serverHistory.forEach(sMsg => {
+            if (!localHistory.some(lMsg => lMsg.timestamp === sMsg.timestamp && lMsg.sender === sMsg.sender)) {
+              localHistory.push(sMsg);
+            }
+          });
         } else {
           localHistory = serverHistory;
         }
@@ -72,11 +113,9 @@ class AITutor {
     const history = JSON.parse(localStorage.getItem(this.chatHistoryKey)) || [];
     const msg = { timestamp: new Date().toISOString(), sender, text, courseId, topicName };
     history.push(msg);
-    // Keep only last 200 messages
     if (history.length > 200) history.splice(0, history.length - 200);
     localStorage.setItem(this.chatHistoryKey, JSON.stringify(history));
 
-    // Post message to server
     const user = window.AuthSystem.getCurrentUser();
     if (user) {
       fetch('/api/chat', {
@@ -87,6 +126,17 @@ class AITutor {
         },
         body: JSON.stringify({ sender, text, courseId, topicName })
       }).catch(e => console.warn("Failed to save chat message to server:", e));
+
+      if (window.AuthSystem.firebaseConnected) {
+        window.AuthSystem.firestore.collection('ai_chat_history').add({
+          email: user.email,
+          timestamp: msg.timestamp,
+          sender,
+          text,
+          courseId,
+          topicName
+        }).catch(err => console.error("Firebase saveMessage failed:", err));
+      }
     }
     return msg;
   }
@@ -99,7 +149,6 @@ class AITutor {
       localStorage.setItem(this.chatHistoryKey, JSON.stringify([]));
     }
 
-    // Clear history on server
     const user = window.AuthSystem.getCurrentUser();
     if (user) {
       fetch('/api/chat/clear', {
@@ -110,6 +159,21 @@ class AITutor {
         },
         body: JSON.stringify({ courseId })
       }).catch(e => console.warn("Failed to clear chat history on server:", e));
+
+      if (window.AuthSystem.firebaseConnected) {
+        let query = window.AuthSystem.firestore.collection('ai_chat_history')
+          .where('email', '==', user.email);
+        if (courseId) {
+          query = query.where('courseId', '==', courseId);
+        }
+        query.get().then(snapshot => {
+          const batch = window.AuthSystem.firestore.batch();
+          snapshot.forEach(doc => {
+            batch.delete(doc.ref);
+          });
+          return batch.commit();
+        }).catch(err => console.error("Firebase clearHistory failed:", err));
+      }
     }
   }
 
@@ -428,8 +492,8 @@ rm -rf /tmp/data  # Dangerous: no confirmation`;
 set -euo pipefail  # Exit on error, undefined vars, pipe failures
 
 # Load credentials from environment, never hardcode!
-DB_PASSWORD="${DB_PASSWORD:?Error: DB_PASSWORD not set}"
-DB_USER="${DB_USER:-root}"
+DB_PASSWORD="\${DB_PASSWORD:?Error: DB_PASSWORD not set}"
+DB_USER="\${DB_USER:-root}"
 
 # Check connection before proceeding
 if ! mysql -u "$DB_USER" -p"$DB_PASSWORD" -e "SELECT 1" &>/dev/null; then
@@ -443,7 +507,7 @@ if [ -d "$TEMP_DIR" ]; then
     read -p "Delete $TEMP_DIR? (y/N): " confirm
     [[ "$confirm" == "y" ]] && rm -rf "$TEMP_DIR"
 fi`;
-      explanation = `Three bugs fixed:\n1. **Hardcoded credentials** — Use environment variables with \`${VAR:?error}\` syntax.\n2. **No error handling** — \`set -euo pipefail\` makes scripts fail safely.\n3. **Dangerous rm -rf** — Always validate paths and confirm destructive operations.`;
+      explanation = `Three bugs fixed:\n1. **Hardcoded credentials** — Use environment variables with \\\`\${VAR:?error}\\\` syntax.\n2. **No error handling** — \`set -euo pipefail\` makes scripts fail safely.\n3. **Dangerous rm -rf** — Always validate paths and confirm destructive operations.`;
     }
 
     return `## 🛠️ AI Debug Analysis: ${lang}

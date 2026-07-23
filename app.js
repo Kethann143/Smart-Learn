@@ -171,6 +171,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function updateFirebaseStatusUI(connected, projectId = null) {
+    const statusBox = document.getElementById('firebase-connection-status');
+    if (!statusBox) return;
+    if (connected) {
+      statusBox.innerHTML = `Client database is set to <span style="color:#00e5ff; font-weight:600;"><i class="fa-solid fa-cloud"></i> Connected</span> (Project ID: <strong style="color:var(--text-primary);">${projectId}</strong>). Data will automatically sync with your Firebase Firestore collections in real-time.`;
+      
+      const statusContainer = statusBox.parentElement;
+      if (statusContainer) {
+        statusContainer.style.background = 'rgba(0, 229, 255, 0.05)';
+        statusContainer.style.borderColor = 'rgba(0, 229, 255, 0.2)';
+      }
+    } else {
+      statusBox.innerHTML = `Client database is set to <span style="color:#4caf50; font-weight:600;">Mock-Offline Mode</span>. Connecting config inputs inside <code>auth.js</code> will instantly sync lists with real Firebase Firestore collections.`;
+      
+      const statusContainer = statusBox.parentElement;
+      if (statusContainer) {
+        statusContainer.style.background = 'rgba(245, 130, 13, 0.05)';
+        statusContainer.style.borderColor = 'rgba(245, 130, 13, 0.15)';
+      }
+    }
+  }
+
   function loadThemeSettings() {
     const settings = auth.getSettings();
     if (settings && settings.theme) {
@@ -189,6 +211,30 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('settings-speech-out').checked = settings.speechOutput;
       document.getElementById('settings-offline-caching').checked = settings.offlineMode;
     }
+
+    // Populate Firebase config inputs
+    const fbConfigStr = localStorage.getItem('fl_firebase_config');
+    if (fbConfigStr) {
+      try {
+        const config = JSON.parse(fbConfigStr);
+        document.getElementById('firebase-api-key').value = config.apiKey || '';
+        document.getElementById('firebase-project-id').value = config.projectId || 'smart-learn-ec890';
+        document.getElementById('firebase-auth-domain').value = config.authDomain || 'smart-learn-ec890.firebaseapp.com';
+        document.getElementById('firebase-app-id').value = config.appId || '';
+        
+        if (auth.firebaseConnected) {
+          updateFirebaseStatusUI(true, config.projectId);
+        } else {
+          updateFirebaseStatusUI(false);
+        }
+      } catch (e) {
+        console.warn("Failed to load saved Firebase config:", e);
+      }
+    } else {
+      document.getElementById('firebase-project-id').value = 'smart-learn-ec890';
+      document.getElementById('firebase-auth-domain').value = 'smart-learn-ec890.firebaseapp.com';
+      updateFirebaseStatusUI(false);
+    }
   }
 
   /* ==========================================
@@ -196,17 +242,63 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================== */
   async function syncProgressFromServer() {
     if (!currentUser) return;
+
+    if (auth.firebaseConnected) {
+      try {
+        const querySnapshot = await auth.firestore.collection('progress')
+          .where('email', '==', currentUser.email)
+          .get();
+        if (!querySnapshot.empty) {
+          const progress = {};
+          querySnapshot.forEach(doc => {
+            const data = doc.data();
+            progress[data.courseId] = data.progress;
+          });
+          coursesProgress = { ...coursesProgress, ...progress };
+          localStorage.setItem('fl_courses_progress', JSON.stringify(coursesProgress));
+        }
+      } catch (err) {
+        console.warn("Failed to sync progress from Firebase:", err);
+      }
+    }
+
     try {
       const res = await fetch('/api/progress', {
         headers: { 'x-user-email': currentUser.email }
       });
       if (res.ok) {
         const progress = await res.json();
-        coursesProgress = progress;
+        coursesProgress = { ...coursesProgress, ...progress };
         localStorage.setItem('fl_courses_progress', JSON.stringify(coursesProgress));
       }
     } catch (e) {
       console.warn("Failed to sync progress from server:", e);
+    }
+  }
+
+  async function syncBookmarksFromFirebase() {
+    if (!currentUser || !auth.firebaseConnected) return;
+    try {
+      const querySnapshot = await auth.firestore.collection('bookmarks')
+        .where('email', '==', currentUser.email)
+        .get();
+      if (!querySnapshot.empty) {
+        const dbBookmarks = [];
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          dbBookmarks.push({ course: data.course, topic: data.topic, courseId: data.courseId || '' });
+        });
+        const localBookmarks = JSON.parse(localStorage.getItem('fl_user_bookmarks')) || [];
+        const combined = [...localBookmarks];
+        dbBookmarks.forEach(dbB => {
+          if (!combined.some(b => b.topic === dbB.topic && b.course === dbB.course)) {
+            combined.push(dbB);
+          }
+        });
+        localStorage.setItem('fl_user_bookmarks', JSON.stringify(combined));
+      }
+    } catch (err) {
+      console.warn("Failed to sync bookmarks from Firebase:", err);
     }
   }
 
@@ -224,7 +316,8 @@ document.addEventListener('DOMContentLoaded', () => {
       await Promise.all([
         auth.fetchUserDetails().then(u => { if (u) currentUser = u; }),
         fl.syncWeightsFromServer(),
-        syncProgressFromServer()
+        syncProgressFromServer(),
+        syncBookmarksFromFirebase()
       ]);
       
       updateUserHeaderProfile();
@@ -763,6 +856,15 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ courseId: activeCourseId, progress: coursesProgress[activeCourseId] })
       }).catch(e => console.warn("Failed to sync progress to server:", e));
 
+      if (auth.firebaseConnected) {
+        auth.firestore.collection('progress').doc(`${currentUser.email}_${activeCourseId}`).set({
+          email: currentUser.email,
+          courseId: activeCourseId,
+          progress: coursesProgress[activeCourseId],
+          timestamp: new Date().toISOString()
+        }, { merge: true }).catch(err => console.error("Firebase progress update failed:", err));
+      }
+
       // Update global user stats
       currentUser.completedLessons += 3;
       currentUser.studyHours += 0.5;
@@ -821,6 +923,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!bookmarks.some(b => b.topic === entry.topic && b.course === entry.course)) {
       bookmarks.push(entry);
       localStorage.setItem('fl_user_bookmarks', JSON.stringify(bookmarks));
+
+      if (auth.firebaseConnected) {
+        auth.firestore.collection('bookmarks').add({
+          email: currentUser.email,
+          course: entry.course,
+          topic: entry.topic,
+          courseId: entry.courseId,
+          timestamp: new Date().toISOString()
+        }).catch(err => console.error("Firebase bookmark save failed:", err));
+      }
     }
   });
 
@@ -1233,6 +1345,101 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
      Settings configurations controller
      ========================================== */
+  async function syncLocalDataToFirebase() {
+    if (!currentUser || !auth.firebaseConnected) return;
+    const email = currentUser.email;
+    const db = auth.firestore;
+    
+    showNotification("Firebase Syncing", "Uploading your learning records and seeding collections.");
+    
+    try {
+      // 1. Sync User Profile
+      await db.collection('users').doc(email).set({
+        email: email,
+        name: currentUser.name,
+        bio: currentUser.bio || '',
+        streak: currentUser.streak || 0,
+        studyHours: currentUser.studyHours || 0,
+        completedTopics: currentUser.completedTopics || 0,
+        completedLessons: currentUser.completedLessons || 0,
+        joinedDate: currentUser.joinedDate || '',
+        skillsLearned: currentUser.skillsLearned || [],
+        achievements: currentUser.achievements || [],
+        password: currentUser.password || 'password123'
+      }, { merge: true });
+      
+      // 2. Sync Settings
+      const settings = auth.getSettings();
+      if (settings) {
+        await db.collection('settings').doc(email).set(settings, { merge: true });
+      }
+      
+      // 3. Sync Course Progress
+      for (const [courseId, progress] of Object.entries(coursesProgress)) {
+        await db.collection('progress').doc(`${email}_${courseId}`).set({
+          email: email,
+          courseId: courseId,
+          progress: progress,
+          timestamp: new Date().toISOString()
+        }, { merge: true });
+      }
+      
+      // 4. Sync Bookmarks
+      const bookmarks = JSON.parse(localStorage.getItem('fl_user_bookmarks')) || [];
+      for (const b of bookmarks) {
+        const query = await db.collection('bookmarks')
+          .where('email', '==', email)
+          .where('course', '==', b.course)
+          .where('topic', '==', b.topic)
+          .get();
+        if (query.empty) {
+          await db.collection('bookmarks').add({
+            email: email,
+            course: b.course,
+            topic: b.topic,
+            courseId: b.courseId || '',
+            timestamp: b.timestamp || new Date().toISOString()
+          });
+        }
+      }
+      
+      // 5. Seed courses to Firebase if empty
+      const coursesSnapshot = await db.collection('courses').limit(1).get();
+      if (coursesSnapshot.empty) {
+        const coursesData = window.SmartLearningDB.getCourses();
+        for (const course of coursesData) {
+          await db.collection('courses').doc(course.id).set(course);
+        }
+        console.log('[Firebase] Seeded /courses collection');
+      }
+
+      // 6. Sync Chat History
+      const chatHistory = JSON.parse(localStorage.getItem('fl_chat_history')) || [];
+      for (const msg of chatHistory) {
+        const query = await db.collection('ai_chat_history')
+          .where('email', '==', email)
+          .where('timestamp', '==', msg.timestamp)
+          .where('sender', '==', msg.sender)
+          .get();
+        if (query.empty) {
+          await db.collection('ai_chat_history').add({
+            email: email,
+            timestamp: msg.timestamp,
+            sender: msg.sender,
+            text: msg.text,
+            courseId: msg.courseId || '',
+            topicName: msg.topicName || ''
+          });
+        }
+      }
+      
+      showNotification("Sync Success", "All learning data fully synchronized with cloud Firestore!");
+    } catch (e) {
+      console.error("Firebase sync error:", e);
+      showNotification("Sync Warning", "Completed connection. Some items did not sync: " + e.message);
+    }
+  }
+
   document.getElementById('settings-theme-toggle').addEventListener('change', toggleTheme);
 
   document.getElementById('settings-auto-sync').addEventListener('change', (e) => {
@@ -1259,6 +1466,48 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.clear();
       sessionStorage.clear();
       window.location.reload();
+    }
+  });
+
+  // Firebase configuration connection trigger
+  document.getElementById('firebase-connect-btn').addEventListener('click', async () => {
+    const apiKey = document.getElementById('firebase-api-key').value.trim();
+    const projectId = document.getElementById('firebase-project-id').value.trim();
+    const authDomain = document.getElementById('firebase-auth-domain').value.trim();
+    const appId = document.getElementById('firebase-app-id').value.trim();
+    
+    if (!apiKey || !projectId) {
+      showNotification("Config Missing", "Please enter at least API Key and Project ID.");
+      return;
+    }
+    
+    const connectBtn = document.getElementById('firebase-connect-btn');
+    const originalText = connectBtn.innerHTML;
+    connectBtn.disabled = true;
+    connectBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
+    
+    const config = {
+      apiKey,
+      projectId,
+      authDomain: authDomain || `${projectId}.firebaseapp.com`,
+      appId: appId || ""
+    };
+    
+    try {
+      await auth.connectFirebase(config);
+      updateFirebaseStatusUI(true, projectId);
+      showNotification("Connected", "Successfully connected to Firebase Firestore!");
+      
+      if (currentUser) {
+        await syncLocalDataToFirebase();
+      }
+    } catch (err) {
+      console.error(err);
+      showNotification("Connection Failed", "Check credentials or network: " + err.message);
+      updateFirebaseStatusUI(false);
+    } finally {
+      connectBtn.disabled = false;
+      connectBtn.innerHTML = originalText;
     }
   });
 

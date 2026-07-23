@@ -692,7 +692,36 @@
             
             <div style="margin-top:25px; padding:15px; border-radius:10px; background:rgba(245, 130, 13, 0.05); border:1px solid rgba(245, 130, 13, 0.15); font-size:0.8rem; line-height:1.4;">
               <strong>Firebase Connection Status:</strong><br>
-              Client database is set to <span style="color:#4caf50; font-weight:600;">Mock-Offline Mode</span>. Connecting config inputs inside <code>auth.js</code> will instantly sync lists with real Firebase Firestore collections.
+              <span id="firebase-connection-status">Client database is set to <span style="color:#4caf50; font-weight:600;">Mock-Offline Mode</span>. Connecting config inputs inside <code>auth.js</code> will instantly sync lists with real Firebase Firestore collections.</span>
+            </div>
+
+            <!-- Firebase Config Input Card -->
+            <div style="margin-top:20px; padding:15px; border-radius:10px; background:rgba(255, 255, 255, 0.02); border:1px solid var(--border-glass);">
+              <h4 style="margin-bottom:12px; color:var(--text-primary); font-size:0.85rem;"><i class="fa-solid fa-gear" style="color:var(--accent-cyan);"></i> Connection Config</h4>
+              
+              <div class="form-group" style="margin-bottom:10px;">
+                <label for="firebase-api-key" style="font-size:0.7rem; margin-bottom:4px; display:block; color:var(--text-secondary);">API Key</label>
+                <input type="text" id="firebase-api-key" placeholder="AIzaSy..." style="width:100%; padding:6px 10px; font-size:0.75rem; background:rgba(0,0,0,0.2); border:1px solid var(--border-glass); border-radius:6px; color:var(--text-primary);">
+              </div>
+              
+              <div class="form-group" style="margin-bottom:10px;">
+                <label for="firebase-project-id" style="font-size:0.7rem; margin-bottom:4px; display:block; color:var(--text-secondary);">Project ID</label>
+                <input type="text" id="firebase-project-id" placeholder="smart-learn-12345" style="width:100%; padding:6px 10px; font-size:0.75rem; background:rgba(0,0,0,0.2); border:1px solid var(--border-glass); border-radius:6px; color:var(--text-primary);">
+              </div>
+
+              <div class="form-group" style="margin-bottom:10px;">
+                <label for="firebase-auth-domain" style="font-size:0.7rem; margin-bottom:4px; display:block; color:var(--text-secondary);">Auth Domain</label>
+                <input type="text" id="firebase-auth-domain" placeholder="smart-learn-12345.firebaseapp.com" style="width:100%; padding:6px 10px; font-size:0.75rem; background:rgba(0,0,0,0.2); border:1px solid var(--border-glass); border-radius:6px; color:var(--text-primary);">
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px;">
+                <label for="firebase-app-id" style="font-size:0.7rem; margin-bottom:4px; display:block; color:var(--text-secondary);">App ID</label>
+                <input type="text" id="firebase-app-id" placeholder="1:123456:web:abcd1234" style="width:100%; padding:6px 10px; font-size:0.75rem; background:rgba(0,0,0,0.2); border:1px solid var(--border-glass); border-radius:6px; color:var(--text-primary);">
+              </div>
+
+              <button class="neon-btn" id="firebase-connect-btn" style="width:100%; justify-content:center; padding:8px; font-size:0.75rem; background:linear-gradient(135deg, #f5820d, #e65100); border-radius:6px; box-shadow:none;">
+                <i class="fa-solid fa-plug"></i> Connect & Sync Firebase
+              </button>
             </div>
           </div>
         </div>
@@ -842,6 +871,10 @@
   <!-- ==========================================
        Service scripts references
        ========================================== -->
+  <!-- Firebase App & Firestore SDK (v10 Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
   <script src="db.js"></script>
   <script src="federated.js"></script>
   <script src="ai.js"></script>
