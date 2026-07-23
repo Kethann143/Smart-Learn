@@ -1,0 +1,80 @@
+name: CI — Lint, Build & Audit
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 1: Dependency Audit
+  # ═══════════════════════════════════════════════════════════════════════════
+  dependency-audit:
+    name: "Dependency Audit"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Run npm audit (root)
+        run: npm audit --audit-level=high || true
+
+      - name: Save audit report
+        run: npm audit --json > npm_audit_results.json || true
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: npm_audit_results.json
+          retention-days: 30
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 2: Build Check
+  # ═══════════════════════════════════════════════════════════════════════════
+  build-check:
+    name: "Build Check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Build web / mobile assets
+        run: node scripts/build-mobile.js
+
+      - name: Verify backend server syntax
+        run: node --check backend/server.js
+
+      - name: Verify electron main syntax
+        run: node --check app/main/electron-main.js
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: build-output
+          path: www/
+          retention-days: 7

@@ -1,0 +1,150 @@
+name: Security & Vulnerability Scan
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  schedule:
+    # Run every Monday at 08:00 UTC
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write   # required for CodeQL / SARIF uploads
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 1: npm audit — all package manifests
+  # ═══════════════════════════════════════════════════════════════════════════
+  npm-audit:
+    name: "npm Audit — All Packages"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Audit root package
+        run: |
+          echo "::group::Root package audit"
+          npm install --ignore-scripts
+          npm audit --json > audit-root.json || true
+          npm audit --audit-level=moderate || true
+          echo "::endgroup::"
+
+      - name: Audit appium-tests package
+        run: |
+          echo "::group::Appium tests audit"
+          cd tests/appium-tests
+          npm install --ignore-scripts
+          npm audit --json > ../../audit-appium.json || true
+          npm audit --audit-level=moderate || true
+          echo "::endgroup::"
+
+      - name: Audit selenium-tests package
+        run: |
+          echo "::group::Selenium tests audit"
+          cd tests/selenium-tests
+          npm install --ignore-scripts
+          npm audit --json > ../../audit-selenium.json || true
+          npm audit --audit-level=moderate || true
+          echo "::endgroup::"
+
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-audit-reports
+          path: |
+            audit-root.json
+            audit-appium.json
+            audit-selenium.json
+          retention-days: 60
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 2: Secrets scanning with Gitleaks
+  # ═══════════════════════════════════════════════════════════════════════════
+  secrets-scan:
+    name: "Secrets Scan (Gitleaks)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better scanning
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 3: CodeQL Static Analysis (JavaScript)
+  # ═══════════════════════════════════════════════════════════════════════════
+  codeql-analysis:
+    name: "CodeQL Static Analysis"
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB 4: License Compliance Check
+  # ═══════════════════════════════════════════════════════════════════════════
+  license-check:
+    name: "License Compliance"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install license-checker
+        run: npm install -g license-checker
+
+      - name: Install project dependencies
+        run: npm install --ignore-scripts
+
+      - name: Check licenses
+        run: |
+          license-checker --production \
+            --excludePrivatePackages \
+            --out license-report.csv \
+            --failOn 'GPL-2.0;GPL-3.0;AGPL-3.0' || true
+          license-checker --production --summary || true
+
+      - name: Upload license report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: license-compliance-report
+          path: license-report.csv
+          retention-days: 60

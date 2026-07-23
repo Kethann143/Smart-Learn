@@ -1,0 +1,109 @@
+name: Load Testing
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+    inputs:
+      concurrency:
+        description: 'Number of virtual users (default: 100)'
+        required: false
+        default: '100'
+      duration_seconds:
+        description: 'Test duration in seconds (default: 60)'
+        required: false
+        default: '60'
+
+permissions:
+  contents: read
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # JOB: Start Backend Server & Run Load Test
+  # ═══════════════════════════════════════════════════════════════════════════
+  load-test:
+    name: "Run Backend Load Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Install Python Excel dependencies
+        run: pip install openpyxl
+
+      - name: Start Express backend server
+        run: |
+          node backend/server.js &
+          echo "SERVER_PID=$!" >> $GITHUB_ENV
+          echo "Waiting for server to start..."
+          sleep 8
+          # Health check
+          curl --retry 5 --retry-delay 2 --fail http://localhost:8080/api/auth/user \
+            -H "x-user-email: student@smartlearn.edu" || echo "Health check done"
+
+      - name: Run load test
+        run: |
+          node tests/load-testing/run_load_test.js
+        env:
+          CONCURRENCY: ${{ github.event.inputs.concurrency || '100' }}
+          DURATION_SECONDS: ${{ github.event.inputs.duration_seconds || '60' }}
+
+      - name: Generate Excel load test report
+        run: |
+          cd tests/load-testing
+          python generate_load_excel.py
+        continue-on-error: true
+
+      - name: Display load test summary
+        run: |
+          echo "=== Load Test Results ==="
+          cat tests/load-testing/load_test_results.json | \
+            node -e "
+              const data = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
+              const s = data.summary;
+              console.log('Total Requests :', s.totalRequests);
+              console.log('Success Rate   :', s.successRate + '%');
+              console.log('Avg RPS        :', s.averageRps + ' req/sec');
+              console.log('Avg Latency    :', s.avgLatency + 'ms');
+              console.log('P50 / P90 / P99:', s.p50 + 'ms /', s.p90 + 'ms /', s.p99 + 'ms');
+              console.log('Min / Max      :', s.minLatency + 'ms /', s.maxLatency + 'ms');
+            "
+
+      - name: Upload load test results (JSON)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-test-results-json
+          path: tests/load-testing/load_test_results.json
+          retention-days: 90
+
+      - name: Upload load test report (Excel)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-test-report-excel
+          path: |
+            tests/load-testing/*.xlsx
+            SmartLearn_LoadTest_Report.xlsx
+          retention-days: 90
+
+      - name: Stop backend server
+        if: always()
+        run: |
+          if [ -n "$SERVER_PID" ]; then
+            kill "$SERVER_PID" || true
+          fi
