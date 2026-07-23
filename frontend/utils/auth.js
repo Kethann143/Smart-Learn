@@ -11,36 +11,78 @@ class AuthSystem {
     this.firebaseConfigKey = 'fl_firebase_config';
     this.firebaseConnected = false;
     this.firestore = null;
-    
+    this.realtimeDb = null;
+
+    // ── Hardcoded Firebase Project Config ──────────────────────────────────
+    this.FIREBASE_CONFIG = {
+      apiKey: "AIzaSyAAcW_DknqwLYF12mcCgaRdX6v-G_yh7LI",
+      authDomain: "smart-learn-ec890.firebaseapp.com",
+      databaseURL: "https://smart-learn-ec890-default-rtdb.firebaseio.com",
+      projectId: "smart-learn-ec890",
+      storageBucket: "smart-learn-ec890.firebasestorage.app",
+      messagingSenderId: "181376975953",
+      appId: "1:181376975953:web:5ea528a31a41eb69a3a470",
+      measurementId: "G-B7JQ1N6SED"
+    };
+    // ───────────────────────────────────────────────────────────────────────
+
     this.initDatabase();
     this.initFirebase();
   }
 
   initFirebase() {
-    const configStr = localStorage.getItem(this.firebaseConfigKey);
-    if (configStr) {
-      try {
-        const config = JSON.parse(configStr);
-        if (config && config.projectId && config.apiKey) {
-          if (typeof firebase !== 'undefined') {
-            if (!firebase.apps.length) {
-              config.databaseURL = config.databaseURL || `https://${config.projectId}-default-rtdb.firebaseio.com`;
-              firebase.initializeApp(config);
-            }
-            this.firestore = firebase.firestore();
-            this.realtimeDb = firebase.database();
-            this.firebaseConnected = true;
-            console.log('[Firebase] Initialized successfully with project:', config.projectId);
-          } else {
-            console.warn('[Firebase] Firebase SDK is not loaded.');
-          }
-        }
-      } catch (e) {
-        console.error('[Firebase] Init error on startup:', e);
-        this.firebaseConnected = false;
+    try {
+      if (typeof firebase === 'undefined') {
+        console.warn('[Firebase] Firebase SDK is not loaded.');
+        return;
       }
+      if (!firebase.apps.length) {
+        firebase.initializeApp(this.FIREBASE_CONFIG);
+      }
+      this.firestore = firebase.firestore();
+      this.realtimeDb = firebase.database();
+      this.firebaseConnected = true;
+      // Persist config so connectFirebase() helper still works
+      localStorage.setItem(this.firebaseConfigKey, JSON.stringify(this.FIREBASE_CONFIG));
+      console.log('[Firebase] Connected to project:', this.FIREBASE_CONFIG.projectId);
+    } catch (e) {
+      console.error('[Firebase] Init error:', e);
+      this.firebaseConnected = false;
     }
   }
+
+  // ── Sync user data to Firebase Realtime Database ─────────────────────────
+  syncUserToRealtimeDB(user) {
+    if (!this.firebaseConnected || !this.realtimeDb) return;
+    try {
+      // Firebase keys cannot contain . # $ / [ ]
+      // Sanitize email: replace @ and . with underscores
+      const safeKey = user.email.toLowerCase()
+        .replace(/\./g, '_')
+        .replace(/@/g, '_at_');
+
+      const payload = {
+        email: user.email,
+        name: user.name || '',
+        bio: user.bio || '',
+        streak: user.streak || 0,
+        studyHours: user.studyHours || 0,
+        completedTopics: user.completedTopics || 0,
+        completedLessons: user.completedLessons || 0,
+        joinedDate: user.joinedDate || '',
+        skillsLearned: user.skillsLearned || [],
+        achievements: user.achievements || [],
+        lastLogin: new Date().toISOString()
+      };
+
+      this.realtimeDb.ref('users/' + safeKey).set(payload)
+        .then(() => console.log('[Firebase RTDB] User synced:', safeKey))
+        .catch(err => console.warn('[Firebase RTDB] Sync failed:', err));
+    } catch (e) {
+      console.warn('[Firebase RTDB] syncUserToRealtimeDB error:', e);
+    }
+  }
+  // ─────────────────────────────────────────────────────────────────────────
 
   connectFirebase(config) {
     return new Promise(async (resolve, reject) => {
@@ -248,6 +290,8 @@ class AuthSystem {
         if (this.firebaseConnected) {
           this.firestore.collection('users').doc(lowercaseEmail).set(data, { merge: true }).catch(console.error);
         }
+        // ── Sync to Realtime Database ──
+        this.syncUserToRealtimeDB(data);
 
         resolve(data);
       } catch (e) {
@@ -269,6 +313,8 @@ class AuthSystem {
         if (this.firebaseConnected) {
           this.firestore.collection('users').doc(lowercaseEmail).set(user, { merge: true }).catch(console.error);
         }
+        // ── Sync to Realtime Database ──
+        this.syncUserToRealtimeDB(user);
 
         resolve(user);
       }
@@ -291,6 +337,8 @@ class AuthSystem {
         if (this.firebaseConnected) {
           this.firestore.collection('users').doc(data.email.toLowerCase()).set(data, { merge: true }).catch(console.error);
         }
+        // ── Sync to Realtime Database ──
+        this.syncUserToRealtimeDB(data);
 
         resolve(data);
       } catch (e) {
