@@ -1,0 +1,3 @@
+{
+  "collections": ["users", "settings", "courses", "course_progress", "chat_history", "achievements"]
+}

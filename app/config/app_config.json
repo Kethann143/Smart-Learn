@@ -1,0 +1,9 @@
+{
+  "appName": "Smart Learn Companion",
+  "version": "1.0.0",
+  "environment": "production",
+  "api": {
+    "baseUrl": "http://localhost:8080/api",
+    "timeout": 5000
+  }
+}

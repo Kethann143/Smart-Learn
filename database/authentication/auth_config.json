@@ -1,0 +1,4 @@
+{
+  "providers": ["email", "google"],
+  "passwordMinLength": 6
+}

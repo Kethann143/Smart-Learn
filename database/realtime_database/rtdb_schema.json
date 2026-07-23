@@ -1,0 +1,3 @@
+{
+  "nodes": ["users", "settings", "courses", "progress", "bookmarks", "ai_chat_history"]
+}

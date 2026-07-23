@@ -32,20 +32,11 @@ files.forEach(file => {
   }
 });
 
-// Copy assets directory contents (e.g. icon.ico, icon.png)
+// Copy assets directory contents (e.g. icons, images, fonts, animations)
 const srcAssets = path.join(__dirname, '..', 'frontend', 'assets');
 const destAssets = path.join(wwwPath, 'assets');
-if (!fs.existsSync(destAssets)) {
-  fs.mkdirSync(destAssets, { recursive: true });
-}
 if (fs.existsSync(srcAssets)) {
-  const assetFiles = fs.readdirSync(srcAssets);
-  assetFiles.forEach(file => {
-    // Skip manifest.json in assets copying to avoid duplicating it under www/assets/
-    if (file !== 'manifest.json') {
-      fs.copyFileSync(path.join(srcAssets, file), path.join(destAssets, file));
-      console.log(`Copied asset ${file} to www/assets/`);
-    }
-  });
+  fs.cpSync(srcAssets, destAssets, { recursive: true });
+  console.log('Copied frontend/assets to www/assets/');
 }
 console.log('Mobile build complete: assets copied to www/');

@@ -1,0 +1,10 @@
+{
+  "routes": [
+    { "id": "home", "title": "Dashboard", "view": "view-home" },
+    { "id": "courses", "title": "Courses", "view": "view-courses" },
+    { "id": "tutor", "title": "AI Tutor", "view": "view-tutor" },
+    { "id": "progress", "title": "Progress", "view": "view-progress" },
+    { "id": "profile", "title": "Profile", "view": "view-profile" },
+    { "id": "settings", "title": "Settings", "view": "view-settings" }
+  ]
+}
